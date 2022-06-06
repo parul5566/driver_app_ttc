@@ -152,55 +152,58 @@ class _HomePageState extends State<HomePage> {
 
 
 
-             Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                 SizedBox(
-                   height: 100,
-                   width: 180,
-                   child: Card(
-                     color: Color(0xFF990000),
-                     /*    width: MediaQuery.of(context).size.width,
-                     height: MediaQuery.of(context).size.height,*/
-                     child: Column(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                         Text('Today Fuel '
-                             ,style: TextStyle(
-                           color: Colors.white,fontSize: 15,
-                         ),),
-                         Text('15 L ',style: TextStyle(
-                           color: Colors.white,fontSize: 15,
-                         ),),
-                       ],
+             Padding(
+               padding: const EdgeInsets.all(20.0),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   SizedBox(
+                     height: 100,
+                     width: 160,
+                     child: Card(
+                       color: Color(0xFF990000),
+                       /*    width: MediaQuery.of(context).size.width,
+                       height: MediaQuery.of(context).size.height,*/
+                       child: Column(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           Text('Today Fuel '
+                               ,style: TextStyle(
+                             color: Colors.white,fontSize: 10,
+                           ),),
+                           Text('15 L ',style: TextStyle(
+                             color: Colors.white,fontSize: 10,
+                           ),),
+                         ],
+                       ),
+                       elevation: 13,
                      ),
-                     elevation: 13,
                    ),
-                 ),
-                 SizedBox(width: 10),
-                 SizedBox(
-                   height: 100,
-                   width: 180,
-                   child: Card(
-                     color: Color(0xFF990000),
-               /*    width: MediaQuery.of(context).size.width,
-                     height: MediaQuery.of(context).size.height,*/
-                     child: Column(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                         Text('Today Fuel '
-                             'Amount',style: TextStyle(
-                           color: Colors.white,fontSize: 15,
-                         ),),
-                         Text('500 ',style: TextStyle(
-                           color: Colors.white,fontSize: 15,
-                         ),),
-                       ],
+
+                   SizedBox(
+                     height: 100,
+                     width: 160,
+                     child: Card(
+                       color: Color(0xFF990000),
+                 /*    width: MediaQuery.of(context).size.width,
+                       height: MediaQuery.of(context).size.height,*/
+                       child: Column(
+                         mainAxisAlignment: MainAxisAlignment.center,
+                         children: [
+                           Text('Today Fuel '
+                               'Amount',style: TextStyle(
+                             color: Colors.white,fontSize: 10,
+                           ),),
+                           Text('500 ',style: TextStyle(
+                             color: Colors.white,fontSize: 10,
+                           ),),
+                         ],
+                       ),
+                    elevation: 13,
                      ),
-                  elevation: 13,
                    ),
-                 ),
-               ],
+                 ],
+               ),
              ),
 
 

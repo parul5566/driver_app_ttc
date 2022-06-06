@@ -40,9 +40,13 @@ class _FuelhistoryState extends State<Fuelhistory> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ) {
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.keyboard_arrow_left_outlined),
+      onPressed: () => Navigator.pop(context),   // will open the Widget defined in property 'drawer'
+    ),
           backgroundColor: AppColors.deep_orange,
           automaticallyImplyLeading: true,
           title: const Text("Fuel History"),
@@ -125,9 +129,6 @@ class _FuelhistoryState extends State<Fuelhistory> {
 
                         ],
                       ),
-
-
-
                     ],
                   )),
             );

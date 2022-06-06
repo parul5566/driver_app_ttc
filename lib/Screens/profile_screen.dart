@@ -175,7 +175,7 @@ class _ProflePageState extends State<ProflePage> {
                             ],
                           ),
                           onTap: () {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Fuelhistory()), );
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> Fuelhistory()), );
                             //Get.to(const TransectionPlumber());
                           },
                         ),

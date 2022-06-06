@@ -30,6 +30,7 @@ class OtpPageState extends State<OtpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('OTP PAGE'),
         backgroundColor: Color(0xFF990000),
         automaticallyImplyLeading: false,
       ),

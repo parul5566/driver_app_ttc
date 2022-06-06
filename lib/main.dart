@@ -69,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("state", loginResponse.data.state);
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> OtpPage()),
       );
     }else {
@@ -114,11 +115,12 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Center(child: Image.asset('assets/logo.png')),
               Container(
+
                 decoration: BoxDecoration(
                     color: Colors.white,
                     //border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(10)),
-                margin: const EdgeInsets.fromLTRB(20, 50, 20, 10),
+                margin: const EdgeInsets.fromLTRB(20, 30, 20, 10),
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 25),
                 child: Column(
 
@@ -154,7 +156,8 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: SizedBox(
-                  width: 250.0,
+                  width: MediaQuery.of(context).size.width,
+                  height: 40,
                   child: ElevatedButton(
                     child: const Text(
                       'Login',
