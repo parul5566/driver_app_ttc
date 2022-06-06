@@ -9,19 +9,6 @@ import '';
 import '../Models/login_model.dart';
 
   class Api   {
-
-
-   /* Future<VehicleListResponse> getvechillist() async {
-      final response = await http.get(
-          Uri.parse('http://ibell.in/api2/Vehicle'));
-      var data = jsonDecode(response.body.toString());
-      if (response.statusCode == 200) {
-        return VehicleListResponse.fromJson(data);
-      } else {
-        return VehicleListResponse.fromJson(data);
-      }
-    }*/
-
     Future<VehicleListResponse ?> getvechillist() async {
       final response = await http.get(
           Uri.parse('http://ibell.in/api2/Vehicle'));

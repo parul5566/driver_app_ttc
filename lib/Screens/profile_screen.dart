@@ -2,12 +2,9 @@ import 'package:driver_app_ttc/Screens/fuelhistory.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-
 import '../../Widget/my_shared_preferences.dart';
-import '../../main.dart';
-import '../../services/Api.dart';
-import '../Models/FuelResoponse.dart';
-import '../Models/login_model.dart';
+import '../main.dart';
+
 class ProflePage extends StatefulWidget {
   const ProflePage({Key? key}) : super(key: key);
 
@@ -120,7 +117,7 @@ class _ProflePageState extends State<ProflePage> {
                 padding: EdgeInsets.only(top: 45.0),
                 child: Center(
                   child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/plumber.png'),
+                    backgroundImage: AssetImage('assets/logo.png'),
                     radius: 50.0,
                   ),
                 ),
@@ -152,7 +149,7 @@ class _ProflePageState extends State<ProflePage> {
                             ],
                           ),
                           onTap: () {
-                            //Get.to(const Profileupdateplumber());
+                            /*//Get.to(const Profileupdateplumber());*/
                           },
                         ),
                       ),
@@ -226,6 +223,7 @@ class _ProflePageState extends State<ProflePage> {
                           ),
                           onTap: () {
                             showdialog();
+
                           },
                         ),
                       ),
@@ -259,7 +257,8 @@ class _ProflePageState extends State<ProflePage> {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (_) =>  const LoginPage()));
             MySharedPreferences.instance.removeAll();
             // Get.off(const Loginpage());
           },

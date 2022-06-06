@@ -23,13 +23,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginPage()
+        home: LoginPage(),
     );
   }
 }
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+
+
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -127,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: phone,
                       focusNode: _phoneFocus,
                       keyboardType: TextInputType.number,
-                      maxLength: 12,
+                      maxLength: 10,
                       inputFormatters:
                       [FilteringTextInputFormatter.digitsOnly],
                       decoration: InputDecoration(

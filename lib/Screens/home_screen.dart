@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:driver_app_ttc/Services/Api.dart';
+import '../Widget/my_shared_preferences.dart';
 import '../widget/data_show.dart';
 import 'FuelFormScreen.dart';
 
@@ -26,6 +27,34 @@ class _HomePageState extends State<HomePage> {
 
 
 
+
+  late String groupid = "";
+  late String userid = "";
+  var username = "";
+  var mobilenumber = "";
+  var userpointbal = "";
+  var profile = "";
+
+
+
+
+
+  getdata() async {
+    username = await MySharedPreferences.instance.getStringValue("name");
+    mobilenumber = await MySharedPreferences.instance.getStringValue("phone");
+    userpointbal = await MySharedPreferences.instance.getStringValue("point");
+    var groupid = await MySharedPreferences.instance.getStringValue("groupid");
+    setState(() {
+      mobilenumber = mobilenumber;
+      username = username;
+      userpointbal = userpointbal;
+      if (groupid == "5") {
+        profile = "Driver";
+      }
+    });
+  }
+
+
   getstatedata() async {
     VehicleListResponse? categoriesResponse =await Api().getvechillist();
 
@@ -37,6 +66,7 @@ class _HomePageState extends State<HomePage> {
   }
   @override
   void initState() {
+    getdata();
     getstatedata();
     // TODO: implement initState
     super.initState();
@@ -47,176 +77,172 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height/3,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height/3,
 
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0,50,0,0),
-                  child: Text('ibell',style: TextStyle(
-                    color: Colors.white,fontSize: 30,
-                  ),),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0,50,0,0),
+                    child: Text('ibell',style: TextStyle(
+                      color: Colors.white,fontSize: 30,
+                    ),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0,20,0,0),
+                    child: Text('Welcome Back ! ',style: TextStyle(
+                      color: Colors.white,fontSize: 30,
+                    ),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0,10,0,0),
+                    child: Text(username,style: TextStyle(
+                      color: Colors.white,fontSize: 30,
+                    ),),
+                  ),
+                ],
+              ),
+              decoration: BoxDecoration(
+                color: Color(0xFF990000),
+            /*    border: Border.all(width: 0,color: Color(0xFF990000),),*/
+                borderRadius: BorderRadius.only(
+                    /*topLeft: Radius.circular(10),
+                    topRight: Radius.circular(20),*/
+                    bottomLeft:Radius.circular(30),
+                    bottomRight:Radius.circular(40)
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0,50,0,0),
-                  child: Text('Welcome Back ! ',style: TextStyle(
-                    color: Colors.white,fontSize: 30,
-                  ),),
-                ),
-              ],
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xFF990000),
-          /*    border: Border.all(width: 0,color: Color(0xFF990000),),*/
-              borderRadius: BorderRadius.only(
-                  /*topLeft: Radius.circular(10),
-                  topRight: Radius.circular(20),*/
-                  bottomLeft:Radius.circular(30),
-                  bottomRight:Radius.circular(40)
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20,20,20,20),
-            child: Container(
-              width: MediaQuery.of(context).size.height,
-              child: ElevatedButton(
-                /*style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
 
-                ),*/
-                style: ElevatedButton.styleFrom(shape: StadiumBorder(
-                     side: BorderSide.none,
-                ),primary: Colors.white),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>   FuelFormScreen()),
-                  );
-                },
 
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                     Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Icon(
-                        Icons.add,
-                        color: Color(0xFF990000),
-                        size: 35.0,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                elevation: 8.0,
+                child: InkWell(
+                  child: Row(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Icon(
+                          Icons.add,
+                          color: Color(0xFF990000),
+                          size: 35.0,
+                        ),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(10.0),
-                      child: Text('Add Fuel Details',style: TextStyle(color: Color(0xFF990000)),),
-                    ),
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('Add Fuel Details',style: TextStyle(color: Color(0xFF990000)),),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (BuildContext ctx) => const FuelFormScreen()));
+                  },
                 ),
               ),
             ),
-          ),
 
 
-           Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: [
-               Container(
-                 width: 150,
-                 height: 150,
-                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                     Text('Today Fuel',style: TextStyle(
-                       color: Colors.white,fontSize: 15,
-                     ),),
-                     Text('15 ltr ',style: TextStyle(
-                       color: Colors.white,fontSize: 15,
-                     ),),
-                   ],
-                 ),
-                 decoration: BoxDecoration(
-                   color: Color(0xFF990000),
-                   /*    border: Border.all(width: 0,color: Color(0xFF990000),),*/
-                   borderRadius: BorderRadius.only(
-                       topLeft: Radius.circular(5),
-                       topRight: Radius.circular(5),
-                       bottomLeft:Radius.circular(5),
-                       bottomRight:Radius.circular(5),
+
+             Row(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 SizedBox(
+                   height: 100,
+                   width: 180,
+                   child: Card(
+                     color: Color(0xFF990000),
+                     /*    width: MediaQuery.of(context).size.width,
+                     height: MediaQuery.of(context).size.height,*/
+                     child: Column(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         Text('Today Fuel '
+                             ,style: TextStyle(
+                           color: Colors.white,fontSize: 15,
+                         ),),
+                         Text('15 L ',style: TextStyle(
+                           color: Colors.white,fontSize: 15,
+                         ),),
+                       ],
+                     ),
+                     elevation: 13,
                    ),
                  ),
-               ),
-               SizedBox(width: 30),
-               Container(
-             /*    width: MediaQuery.of(context).size.width,
-                 height: MediaQuery.of(context).size.height,*/
-                 width: 150,
-                 height: 150,
-                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
-                   children: [
-                     Text('Today Fuel '
-                         'Amount',style: TextStyle(
-                       color: Colors.white,fontSize: 15,
-                     ),),
-                     Text('500 ',style: TextStyle(
-                       color: Colors.white,fontSize: 15,
-                     ),),
-                   ],
-                 ),
-                 decoration: BoxDecoration(
-                   color: Color(0xFF990000),
-                   /*    border: Border.all(width: 0,color: Color(0xFF990000),),*/
-                   borderRadius: BorderRadius.only(
-                     topLeft: Radius.circular(5),
-                  topRight: Radius.circular(5),
-                       bottomLeft:Radius.circular(5),
-                       bottomRight:Radius.circular(5),
+                 SizedBox(width: 10),
+                 SizedBox(
+                   height: 100,
+                   width: 180,
+                   child: Card(
+                     color: Color(0xFF990000),
+               /*    width: MediaQuery.of(context).size.width,
+                     height: MediaQuery.of(context).size.height,*/
+                     child: Column(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         Text('Today Fuel '
+                             'Amount',style: TextStyle(
+                           color: Colors.white,fontSize: 15,
+                         ),),
+                         Text('500 ',style: TextStyle(
+                           color: Colors.white,fontSize: 15,
+                         ),),
+                       ],
+                     ),
+                  elevation: 13,
                    ),
                  ),
-               ),
-             ],
-           ),
+               ],
+             ),
 
 
-          Padding(
-            padding: const EdgeInsets.only(top: 10.0, right: 25.0, left: 25.0),
-            child: DropdownButton(
-                hint: dropdownValuestate.isEmpty
-                    ? const Text(
-                  'Select Van',
-                  style: TextStyle(color: Colors.black),
-                )
-                    : Text(
-                  dropdownValuestate,
-                  style: const TextStyle(color: Colors.black),
-                ),
-                isExpanded: true,
-                items: _statelist.map((stateresponse) {
-                  return DropdownMenuItem(
-                    value: stateresponse,
-                    child: Text(stateresponse.vno),
-                  );
-                }).toList(),
-                onChanged: (Data? newValue) {
-                  setState(() {
-                    dropdownValuestate = newValue!.vno.toString();
-                    vechleid = newValue.vid;
-                    //getcity(newValue.id);
-                  });
-                }),
-          ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                child: DropdownButton(
+                    hint: dropdownValuestate.isEmpty
+                        ? const Text(
+                      'Select Van',
+                      style: TextStyle(color: Colors.black),
+                    )
+                        : Text(
+                      dropdownValuestate,
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                    isExpanded: true,
+                    items: _statelist.map((stateresponse) {
+                      return DropdownMenuItem(
+                        value: stateresponse,
+                        child: Text(stateresponse.vno),
+                      );
+                    }).toList(),
+                    onChanged: (Data? newValue) {
+                      setState(() {
+                        dropdownValuestate = newValue!.vno.toString();
+                        vechleid = newValue.vid;
+                        //getcity(newValue.id);
+                      });
+                    }),
+              ),
+            ),
 
 
-          Container(
-              width: MediaQuery.of(context).size.width*1,
-              height: 30,
-              child: const DataShow()),
-        ],
+            Card(
+              elevation: 13,
+              child: Container(
+                  width: MediaQuery.of(context).size.width/2,
+                  height: 30,
+                  child: const DataShow()),
+            ),
+          ],
+        ),
       ),
     );
   }
