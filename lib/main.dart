@@ -23,17 +23,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+        home: LoginPage()
     );
   }
 }
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
-
-
-
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -155,35 +151,36 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              Center(
-                  child: SizedBox(
-                    width: 250.0,
-                    child: ElevatedButton(
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontStyle: FontStyle.normal,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white),
-                      ),
-                      onPressed: () {
-                        if (phone.text.toString().isEmpty) {
-                          _showMyDialog(context, "Please Enter Phone number");
-                        } else{
-                          callLoginApi("91"+phone.text.toString());
-                        }
-                      },
-                      style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all(AppColors.deep_orange),
-                          padding:
-                          MaterialStateProperty.all(const EdgeInsets.all(8.0)),
-                          textStyle: MaterialStateProperty.all(
-                              const TextStyle(fontSize: 18))),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  width: 250.0,
+                  child: ElevatedButton(
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontStyle: FontStyle.normal,
+                          fontWeight: FontWeight.w800,
+                          color: Colors.white),
                     ),
+                    onPressed: () {
+                      if (phone.text.toString().isEmpty) {
+                        _showMyDialog(context, "Please Enter Phone number");
+                      } else{
+                        callLoginApi("91"+phone.text.toString());
+                      }
+                    },
+                    style: ButtonStyle(
+                        backgroundColor:
+                        MaterialStateProperty.all(AppColors.deep_orange),
+                        padding:
+                        MaterialStateProperty.all(const EdgeInsets.all(8.0)),
+                        textStyle: MaterialStateProperty.all(
+                            const TextStyle(fontSize: 18))),
                   ),
                 ),
+              ),
 
 
                   ],

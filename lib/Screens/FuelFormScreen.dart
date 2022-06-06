@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../Widget/my_shared_preferences.dart';
 import '../../services/Api.dart';
@@ -86,7 +87,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
           ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: _products.length,
+              itemCount: 1,
               itemBuilder: (_, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -115,7 +116,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                           ),
 
                           Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                            padding:  EdgeInsets.all(10),
                             child: Column(
                               children: [
                                 Container(
@@ -141,7 +142,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                             ),
                           ),
                           Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                            padding:  EdgeInsets.all(10),
                             child: Container(
                               child:  Center(
                                 child: Align(
@@ -149,6 +150,10 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(30,0,0,0),
                                     child:TextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.money, color: Colors.pink),
                                         filled: true,
@@ -171,7 +176,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                           ),
 
                           Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                            padding:  EdgeInsets.all(10),
                             child: Container(
                               child:  Center(
                                 child: Align(
@@ -179,7 +184,12 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(30,0,0,0),
                                     child:TextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
                                       decoration: InputDecoration(
+
                                         prefixIcon: Icon(Icons.margin, color: Colors.pink),
                                         filled: true,
                                         hintText: "${(_products[index].fuleamt)}",
@@ -201,7 +211,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                           ),
 
                           Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                            padding:  EdgeInsets.all(10),
                             child: Container(
                               child:  Center(
                                 child: Align(
@@ -209,6 +219,10 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(30,0,0,0),
                                     child:TextField(
+                                      keyboardType: TextInputType.number,
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly
+                                      ],
                                       decoration: InputDecoration(
                                         prefixIcon: Icon(Icons.meeting_room_outlined, color: Colors.pink),
                                         filled: true,
@@ -230,43 +244,40 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                             ),
                           ),
                           Card(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                              child: SizedBox(
-                                height: 60.0,
-                                width: MediaQuery.of(context).size.width * 1.0,
-                                child: ElevatedButton.icon(
-                                  icon: const Icon(
-                                    Icons.update,
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    size: 24.0,
-                                  ),
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5.0),
-                                          side: const BorderSide(color: Color(0xFF990000), width: 1.0),
-                                        )),
-                                    backgroundColor: MaterialStateProperty.all<Color>(
-                                        const Color(0xFF990000)),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => const BottomNavController(
-
-                                      )),
-                                    );
-                                  },
-                                  label: const Text('Submit',
-                                      style: TextStyle(
-                                        height: 1.171875,
-                                        fontSize: 24.0,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w400,
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                      )),
+                            child: SizedBox(
+                              height: 60.0,
+                              width: MediaQuery.of(context).size.width * 1.0,
+                              child: ElevatedButton.icon(
+                                icon: const Icon(
+                                  Icons.update,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  size: 24.0,
                                 ),
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        side: const BorderSide(color: Color(0xFF990000), width: 1.0),
+                                      )),
+                                  backgroundColor: MaterialStateProperty.all<Color>(
+                                      const Color(0xFF990000)),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const BottomNavController(
+
+                                    )),
+                                  );
+                                },
+                                label: const Text('Submit',
+                                    style: TextStyle(
+                                      height: 1.171875,
+                                      fontSize: 24.0,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w400,
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                    )),
                               ),
                             ),
                           ),

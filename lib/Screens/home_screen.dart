@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   final List<Data> _statelist = [];
   var vechleid = "";
   String dropdownValuestate = "";
-
+  bool isLoading = true;
 
 
 
@@ -143,7 +143,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onTap: () {
                     Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (BuildContext ctx) => const FuelFormScreen()));
+                        MaterialPageRoute(builder: (BuildContext ctx) => const FuelFormScreen()));
+
                   },
                 ),
               ),
@@ -232,13 +233,11 @@ class _HomePageState extends State<HomePage> {
                     }),
               ),
             ),
-
-
             Card(
               elevation: 13,
               child: Container(
                   width: MediaQuery.of(context).size.width/2,
-                  height: 30,
+                  height: 40,
                   child: const DataShow()),
             ),
           ],
@@ -285,6 +284,4 @@ class _HomePageState extends State<HomePage> {
   }
 
 }
-
-
 

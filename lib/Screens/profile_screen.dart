@@ -181,24 +181,29 @@ class _ProflePageState extends State<ProflePage> {
                         ),
                       ),
                       const SizedBox(height: 6.0),
-                      Card(
-                        elevation: 8.0,
-                        child: Row(
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Icon(
-                                Icons.share,
-                                color: AppColors.deep_orange,
-                                size: 30.0,
+                      InkWell(
+                        child: Card(
+                          elevation: 8.0,
+                          child: Row(
+                            children: const [
+                              Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: Icon(
+                                  Icons.share,
+                                  color: AppColors.deep_orange,
+                                  size: 30.0,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "Share",
-                              style: TextStyle(color: Colors.black, fontSize: 15.0),
-                            ),
-                          ],
+                              Text(
+                                "Share",
+                                style: TextStyle(color: Colors.black, fontSize: 15.0),
+                              ),
+                            ],
+                          ),
                         ),
+                        onTap: (){
+                          /*Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> DemoApp()), );*/
+                        },
                       ),
                       const SizedBox(height: 6.0),
                       Card(

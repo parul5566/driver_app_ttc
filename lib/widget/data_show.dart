@@ -41,7 +41,7 @@ class _DataShowState extends State<DataShow> {
                     Positioned(
                       left: 0.0,
                       right: 0.0,
-                      height: 32.0,
+                      height: 40.0,
 
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
