@@ -194,7 +194,6 @@ class _LoginPageState extends State<LoginPage> {
 
       ),
     );
-
   }
   void _showMyDialog(BuildContext context, String msg,) {
     showDialog(

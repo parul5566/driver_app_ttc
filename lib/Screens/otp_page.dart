@@ -34,44 +34,39 @@ class OtpPageState extends State<OtpPage> {
         backgroundColor: Color(0xFF990000),
         automaticallyImplyLeading: false,
       ),
-      body:  Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: <Widget>[
-                Container(
-                    alignment: Alignment.center,
-                    child: Text("Enter OTP:", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20,
-                        color: Color(0xFF990000),
-                    )),
-                ),
-                SizedBox(height: 8),
-                CodeInput(
-                  spacing: 0,
-                  length: 6,
-                  keyboardType: TextInputType.number,
-                  builder: CodeInputBuilders.darkCircle(),
-                  onFilled: (value) => print('Your input is $value.'),
-                ),
-                SizedBox(height: 50,),
-                InkWell(
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height/15,
-                    color: Color(0xFF990000),
-                    child: Text("Submit", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20, color: Colors.white)),
-                  ),
-                  onTap: (){
-                    if ((value ?? '') == '') {
-                      _showMyDialog(context, "Please Enter otp ");
-                    }
-                  },
-                ),
-              ],
-            ),
+      body:  Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+              alignment: Alignment.center,
+              child: Text("Enter OTP:", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20,
+                  color: Color(0xFF990000),
+              )),
           ),
-        ),
+          SizedBox(height: 8),
+          CodeInput(
+            spacing: 0,
+            length: 6,
+            keyboardType: TextInputType.number,
+            builder: CodeInputBuilders.darkCircle(),
+            onFilled: (value) => print('Your input is $value.'),
+          ),
+          SizedBox(height: 50,),
+          InkWell(
+            child: Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.height/3,
+              height: 40,
+              color: Color(0xFF990000),
+              child: Text("Submit", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20, color: Colors.white)),
+            ),
+            onTap: (){
+              if ((value ?? '') == '') {
+                _showMyDialog(context, "Please Enter otp ");
+              }
+            },
+          ),
+        ],
       ),
     );
   }
