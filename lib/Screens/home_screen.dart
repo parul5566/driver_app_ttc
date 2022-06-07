@@ -89,10 +89,10 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0,50,0,0),
-                    child: Text('ibell',style: TextStyle(
-                      color: Colors.white,fontSize: 30,
-                    ),),
+                    padding: const EdgeInsets.fromLTRB(0,40,0,0),
+                    child: Center(child: Image.asset('assets/logo.png', width: 100,
+                      height: 100
+                      ,)),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0,20,0,0),
