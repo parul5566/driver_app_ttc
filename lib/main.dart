@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                           prefixText: "+91",
                           icon: const Icon(
                             Icons.phone_android,
-                            color: Color(0xFF990000),
+                            color: Color(0xFF1E90FF),
                           ),
                           focusedBorder: UnderlineInputBorder(
                             borderSide:
@@ -170,6 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (phone.text.toString().isEmpty) {
                         _showMyDialog(context, "Please Enter Phone number");
+
                       } else{
                         callLoginApi("91"+phone.text.toString());
                       }
@@ -221,6 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                     "Okay",
                     style: TextStyle(
                         color: Colors.red),
+
                   )),
             ],
           );});

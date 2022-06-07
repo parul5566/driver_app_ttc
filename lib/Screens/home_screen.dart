@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:driver_app_ttc/Services/Api.dart';
 import '../Widget/my_shared_preferences.dart';
+import '../widget/AppColors.dart';
 import '../widget/data_show.dart';
 import 'FuelFormScreen.dart';
 
@@ -108,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               decoration: BoxDecoration(
-                color: Color(0xFF990000),
+                color: AppColors.deep_orange,
             /*    border: Border.all(width: 0,color: Color(0xFF990000),),*/
                 borderRadius: BorderRadius.only(
                     /*topLeft: Radius.circular(10),
@@ -131,13 +132,13 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.all(10.0),
                         child: Icon(
                           Icons.add,
-                          color: Color(0xFF990000),
+                          color: AppColors.deep_orange,
                           size: 35.0,
                         ),
                       ),
                       const Padding(
                         padding: EdgeInsets.all(10.0),
-                        child: Text('Add Fuel Details',style: TextStyle(color: Color(0xFF990000)),),
+                        child: Text('Add Fuel Details',style: TextStyle(color: AppColors.deep_orange),),
                       ),
                     ],
                   ),
@@ -150,7 +151,35 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Card(
+                elevation: 8.0,
+                child: InkWell(
+                  child: Row(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Icon(
+                          Icons.add,
+                          color: AppColors.deep_orange,
+                          size: 35.0,
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('Add Fuel',style: TextStyle(color: AppColors.deep_orange),),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    /*Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (BuildContext ctx) => const FuelFormScreen()));*/
 
+                  },
+                ),
+              ),
+            ),
 
              Padding(
                padding: const EdgeInsets.all(20.0),
@@ -161,7 +190,7 @@ class _HomePageState extends State<HomePage> {
                      height: 100,
                      width: 160,
                      child: Card(
-                       color: Color(0xFF990000),
+                       color: AppColors.deep_orange,
                        /*    width: MediaQuery.of(context).size.width,
                        height: MediaQuery.of(context).size.height,*/
                        child: Column(
@@ -169,10 +198,12 @@ class _HomePageState extends State<HomePage> {
                          children: [
                            Text('Today Fuel '
                                ,style: TextStyle(
-                             color: Colors.white,fontSize: 10,
+                               fontWeight: FontWeight.normal,
+                             color: Colors.white,fontSize: 15,
                            ),),
                            Text('15 L ',style: TextStyle(
-                             color: Colors.white,fontSize: 10,
+                             fontWeight: FontWeight.normal,
+                             color: Colors.white,fontSize: 15,
                            ),),
                          ],
                        ),
@@ -184,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                      height: 100,
                      width: 160,
                      child: Card(
-                       color: Color(0xFF990000),
+                       color: AppColors.deep_orange,
                  /*    width: MediaQuery.of(context).size.width,
                        height: MediaQuery.of(context).size.height,*/
                        child: Column(
@@ -192,10 +223,12 @@ class _HomePageState extends State<HomePage> {
                          children: [
                            Text('Today Fuel '
                                'Amount',style: TextStyle(
-                             color: Colors.white,fontSize: 10,
+                             fontWeight: FontWeight.normal,
+                             color: Colors.white,fontSize: 15,
                            ),),
                            Text('500 ',style: TextStyle(
-                             color: Colors.white,fontSize: 10,
+                             fontWeight: FontWeight.normal,
+                             color: Colors.white,fontSize: 15,
                            ),),
                          ],
                        ),

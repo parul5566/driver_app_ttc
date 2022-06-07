@@ -4,6 +4,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../Widget/my_shared_preferences.dart';
 import '../../services/Api.dart';
 import '../Models/FuelResoponse.dart';
+import '../Models/FuelResoponse.dart';
+import '../widget/AppColors.dart';
 import '../widget/bottom_nav_controller.dart';
 class FuelFormScreen extends StatefulWidget {
 
@@ -28,6 +30,9 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   TextEditingController bmtrreading = TextEditingController();
 
   final List _products = [];
+
+
+
 
 
   getcategotydata() async {
@@ -60,6 +65,8 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
 
 
 
+
+
   @override
   void initState() {
     getdatastp();
@@ -75,7 +82,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        backgroundColor: Color(0xFF990000),
+        backgroundColor: AppColors.deep_orange,
         centerTitle: true,
         title: Text('Fuel Form'),
       ),
@@ -109,7 +116,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                   fontSize: 18.0,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w800,
-                                  color: Color(0xFF990000),
+                                  color: AppColors.deep_orange,
                                 ),
                               ),
                             ),
@@ -133,7 +140,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                     borderRadius: BorderRadius.circular(10),
                                     color: Colors.white,
                                     boxShadow: const [
-                                      BoxShadow(color: Color(0xFF990000), spreadRadius: 2),
+                                      BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
                                     ],
                                   ),
                                   height: 50,
@@ -155,7 +162,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                         FilteringTextInputFormatter.digitsOnly
                                       ],
                                       decoration: InputDecoration(
-                                        prefixIcon: Icon(Icons.money, color: Colors.pink),
+                                        prefixIcon: Icon(Icons.money, color: Colors.blue),
                                         filled: true,
                                         hintText: "${_products[index].payamt}",
                                       ),
@@ -168,7 +175,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
                                 boxShadow: const [
-                                  BoxShadow(color: Color(0xFF990000), spreadRadius: 2),
+                                  BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
                                 ],
                               ),
                               height: 50,
@@ -184,13 +191,13 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(30,0,0,0),
                                     child:TextField(
-                                      keyboardType: TextInputType.number,
+                                      keyboardType: TextInputType.numberWithOptions(decimal: true),
                                       inputFormatters: [
-                                        FilteringTextInputFormatter.digitsOnly
+                                        FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
                                       ],
                                       decoration: InputDecoration(
 
-                                        prefixIcon: Icon(Icons.margin, color: Colors.pink),
+                                        prefixIcon: Icon(Icons.margin, color: Colors.blue),
                                         filled: true,
                                         hintText: "${(_products[index].fuleamt)}",
                                       ),
@@ -203,7 +210,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
                                 boxShadow: const [
-                                  BoxShadow(color: Color(0xFF990000), spreadRadius: 2),
+                                  BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
                                 ],
                               ),
                               height: 50,
@@ -224,7 +231,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                         FilteringTextInputFormatter.digitsOnly
                                       ],
                                       decoration: InputDecoration(
-                                        prefixIcon: Icon(Icons.meeting_room_outlined, color: Colors.pink),
+                                        prefixIcon: Icon(Icons.meeting_room_outlined, color: Colors.blue),
                                         filled: true,
                                         hintText: "Meter Reading",
                                       ),
@@ -237,7 +244,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
                                 boxShadow: const [
-                                  BoxShadow(color: Color(0xFF990000), spreadRadius: 2),
+                                  BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
                                 ],
                               ),
                               height: 50,
@@ -245,22 +252,22 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                           ),
                           Card(
                             child: SizedBox(
-                              height: 60.0,
+                              height: 40.0,
                               width: MediaQuery.of(context).size.width * 1.0,
                               child: ElevatedButton.icon(
                                 icon: const Icon(
                                   Icons.update,
-                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  color: Colors.white,
                                   size: 24.0,
                                 ),
                                 style: ButtonStyle(
                                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5.0),
-                                        side: const BorderSide(color: Color(0xFF990000), width: 1.0),
+                                        side: const BorderSide(color: AppColors.deep_orange, width: 1.0),
                                       )),
                                   backgroundColor: MaterialStateProperty.all<Color>(
-                                      const Color(0xFF990000)),
+                                      const Color(0xFF1E90FF)),
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -276,24 +283,22 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                       fontSize: 24.0,
                                       fontFamily: 'Roboto',
                                       fontWeight: FontWeight.w400,
-                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      color: Colors.white,
                                     )),
                               ),
                             ),
                           ),
                         ],
-                      )),
+                      ),
+                  ),
                 );
               }),
-
-
-
-
-
-
         ],
         ),
       ),
     );
   }
 }
+
+
+

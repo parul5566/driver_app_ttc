@@ -1,4 +1,5 @@
 import 'package:driver_app_ttc/Screens/fuelhistory.dart';
+import 'package:driver_app_ttc/Screens/profile_screen_page.dart';
 import 'package:driver_app_ttc/Screens/share_png.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/material.dart';
@@ -149,6 +150,7 @@ class _ProflePageState extends State<ProflePage> {
                         ],
                       ),
                       onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> ProfileScreen()), );
                         /*//Get.to(const Profileupdateplumber());*/
                       },
                     ),

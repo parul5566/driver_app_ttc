@@ -1,14 +1,12 @@
 
 
 import 'package:code_input/code_input.dart';
+import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-
-
 import '../widget/bottom_nav_controller.dart';
-import 'home_screen.dart';
+
 
 class OtpPage extends StatefulWidget {
   @override
@@ -31,7 +29,7 @@ class OtpPageState extends State<OtpPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('OTP PAGE'),
-        backgroundColor: Color(0xFF990000),
+        backgroundColor: AppColors.deep_orange,
         automaticallyImplyLeading: false,
       ),
       body:  Column(
@@ -40,7 +38,7 @@ class OtpPageState extends State<OtpPage> {
           Container(
               alignment: Alignment.center,
               child: Text("Enter OTP:", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20,
-                  color: Color(0xFF990000),
+                  color: AppColors.deep_orange,
               )),
           ),
           SizedBox(height: 8),
@@ -57,7 +55,7 @@ class OtpPageState extends State<OtpPage> {
               alignment: Alignment.center,
               width: MediaQuery.of(context).size.height/3,
               height: 40,
-              color: Color(0xFF990000),
+              color: AppColors.deep_orange,
               child: Text("Submit", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20, color: Colors.white)),
             ),
             onTap: (){

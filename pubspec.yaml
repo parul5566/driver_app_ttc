@@ -45,6 +45,16 @@ dependencies:
   flutter_share: ^2.0.0
   flutter_easyloading: ^3.0.3
   share: ^2.0.4
+  # switch animation between light and dark theme
+  animated_theme_switcher: ^2.0.1-nullsafety.0
+
+  # persist locally data
+
+  # pick image
+  image_picker: ^0.7.4
+
+  # store image
+  path_provider: ^2.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
