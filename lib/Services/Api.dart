@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import '../Models/FuelResoponse.dart';
 import '';
 import '../Models/login_model.dart';
+import '../Models/otp_model.dart';
 
   class Api   {
     Future<VehicleListResponse ?> getvechillist() async {
@@ -33,6 +34,20 @@ import '../Models/login_model.dart';
         }
       } on Exception {
         return LoginResponse.fromJson(jsonDecode(response.body));
+      }
+    }
+
+    Future<OtpResponse?> getOtp(/*{var userotp, var mobile }*/) async {
+      final response = await http.get(
+          Uri.parse("https://ibell.in/api2/login/verifyotp?userotp=782201&mobile=918591776864"));
+      try {
+        if (response.statusCode == 200) {
+          return OtpResponse.fromJson(jsonDecode(response.body));
+        } else {
+          throw Exception();
+        }
+      } on Exception {
+        return OtpResponse.fromJson(jsonDecode(response.body));
       }
     }
 

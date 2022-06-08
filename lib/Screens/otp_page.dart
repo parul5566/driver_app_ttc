@@ -1,10 +1,14 @@
 
 
 import 'package:code_input/code_input.dart';
+import 'package:driver_app_ttc/Models/otp_model.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '../Services/Api.dart';
+import '../Widget/my_shared_preferences.dart';
 import '../widget/bottom_nav_controller.dart';
 
 
@@ -14,14 +18,34 @@ class OtpPage extends StatefulWidget {
 }
 
 class OtpPageState extends State<OtpPage> {
-  final _pinPutController = TextEditingController();
 
-  get value => null;
+
+  var userotp = "";
+  var mobilenumber ="";
+
+  callotpApi() async{
+
+    OtpResponse? otpResponse = await Api().getOtp();
+
+    mobilenumber = await MySharedPreferences.instance.getStringValue("phone");
+    userotp = await MySharedPreferences.instance.getStringValue("userotp");
+    if(otpResponse!.success ==1){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavController()));
+    }else {
+    Fluttertoast.showToast(
+      msg:'Otp is not corrercts ',
+    );
+    }
+  }
+
+
+
 
 
   @override
   void initState() {
     super.initState();
+    callotpApi();
   }
 
   @override
@@ -59,9 +83,8 @@ class OtpPageState extends State<OtpPage> {
               child: Text("Submit", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20, color: Colors.white)),
             ),
             onTap: (){
+              callotpApi();
 
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (BuildContext ctx) => const BottomNavController()));
               /*if ((value ?? '') == '') {
 
               }*/
