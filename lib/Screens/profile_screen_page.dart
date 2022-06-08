@@ -101,9 +101,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 50,
                     ),
                   ),
-
-
-
                   Padding(
                     padding:  EdgeInsets.all(10),
                     child: Column(
@@ -195,8 +192,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 50,
                     ),
                   ),
-
-
                   Padding(
                     padding:  EdgeInsets.all(10),
                     child: Container(

@@ -157,6 +157,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(30,0,0,0),
                                     child:TextField(
+
                                       keyboardType: TextInputType.number,
                                       inputFormatters: [
                                         FilteringTextInputFormatter.digitsOnly
@@ -165,6 +166,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                         prefixIcon: Icon(Icons.money, color: Colors.blue),
                                         filled: true,
                                         hintText: "${_products[index].payamt}",
+                                        labelText: "Payment",
                                       ),
                                     ),
 
@@ -200,6 +202,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                                         prefixIcon: Icon(Icons.margin, color: Colors.blue),
                                         filled: true,
                                         hintText: "${(_products[index].fuleamt)}",
+                                        labelText: "FuelAmount",
                                       ),
                                     ),
 

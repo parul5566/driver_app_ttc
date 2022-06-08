@@ -35,6 +35,8 @@ class _HomePageState extends State<HomePage> {
   var mobilenumber = "";
   var userpointbal = "";
   var profile = "";
+  var fuleamt = "";
+  var payamt = "";
 
 
 
@@ -44,7 +46,10 @@ class _HomePageState extends State<HomePage> {
     username = await MySharedPreferences.instance.getStringValue("name");
     mobilenumber = await MySharedPreferences.instance.getStringValue("phone");
     userpointbal = await MySharedPreferences.instance.getStringValue("point");
+    fuleamt = await MySharedPreferences.instance.getStringValue("fuleamt");
+    payamt = await MySharedPreferences.instance.getStringValue("payamt");
     var groupid = await MySharedPreferences.instance.getStringValue("groupid");
+
     setState(() {
       mobilenumber = mobilenumber;
       username = username;
@@ -138,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const Padding(
                         padding: EdgeInsets.all(10.0),
-                        child: Text('Add Fuel Details',style: TextStyle(color: AppColors.deep_orange),),
+                        child: Text('Add Fuel',style: TextStyle(color: AppColors.deep_orange),),
                       ),
                     ],
                   ),
@@ -151,35 +156,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Card(
-                elevation: 8.0,
-                child: InkWell(
-                  child: Row(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Icon(
-                          Icons.add,
-                          color: AppColors.deep_orange,
-                          size: 35.0,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text('Add Fuel',style: TextStyle(color: AppColors.deep_orange),),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    /*Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (BuildContext ctx) => const FuelFormScreen()));*/
 
-                  },
-                ),
-              ),
-            ),
 
              Padding(
                padding: const EdgeInsets.all(20.0),
@@ -201,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                                fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
-                           Text('15 L ',style: TextStyle(
+                           Text('15 L',style: TextStyle(
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),

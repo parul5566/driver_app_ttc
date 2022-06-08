@@ -59,54 +59,19 @@ class OtpPageState extends State<OtpPage> {
               child: Text("Submit", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20, color: Colors.white)),
             ),
             onTap: (){
-              if ((value ?? '') == '') {
-                _showMyDialog(context, "Please Enter otp ");
-              }
+
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (BuildContext ctx) => const BottomNavController()));
+              /*if ((value ?? '') == '') {
+
+              }*/
             },
           ),
         ],
       ),
     );
   }
-  void _showMyDialog(BuildContext context, String msg,) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
 
-          return CupertinoAlertDialog(
-            title: Text("Error"),
-            content: Padding(
-              padding: EdgeInsets.all(10),
-              child: Text(msg),
-            ),
-            actions: <Widget>[
-              CupertinoDialogAction(
-              isDefaultAction: true,
-              onPressed: (){
-                Navigator.of(context).push(MaterialPageRoute(builder:(context)=>BottomNavController()));
-              },
-              child: Text("Confirm")
-          ),
-              CupertinoDialogAction(
-                  textStyle:
-                  const TextStyle(color: Colors.red),
-                  isDefaultAction: true,
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    // SharedPreferences prefs = await SharedPreferences.getInstance();
-                    // prefs.remove('isLogin');
-                    // Navigator.pushReplacement(context,
-                    //     MaterialPageRoute(builder: (BuildContext ctx) => Login()));
-                  },
-                  child: const Text(
-                    "Okay",
-                    style: TextStyle(
-                        color: Colors.red),
-                  ),
-              ),
-            ],
-          );});
-  }
 
 }
 
