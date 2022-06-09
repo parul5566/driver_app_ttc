@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../Widget/my_shared_preferences.dart';
 import '../../services/Api.dart';
-import '../Models/FuelResoponse.dart';
 import '../Models/FuelResoponse.dart';
 import '../Models/VehicleModel.dart';
 import '../widget/AppColors.dart';
@@ -41,12 +38,10 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   final List _products = [];
 
 
-  final List<VehicleListResponse> vehiclelistresponse = [];
+  final List<ExpenseList> vehiclelistresponse = [];
 
   void getvehiclefuel({var uid,var vid,var mtr,var amt,var ltr,var todayprice}) {
-    final expense = VehicleListResponse(data: [], msg: '', success: 1,
-
-    );
+    final expense = ExpenseList(todayprice: '', uid: '', ltr: '', vid: '', mtr: '', amt: '');
     setState(() {
       vehiclelistresponse.add(expense);
     });
