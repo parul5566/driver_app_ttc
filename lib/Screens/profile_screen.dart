@@ -204,7 +204,7 @@ class _ProflePageState extends State<ProflePage> {
                       ),
                     ),
                     onTap: (){
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ShareLink()), );
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> ShareApp()), );
                     },
                   ),
                   const SizedBox(height: 6.0),

@@ -1,5 +1,6 @@
 
 import 'package:driver_app_ttc/widget/AppColors.dart';
+import 'package:driver_app_ttc/widget/bottom_nav_controller.dart';
 import 'package:driver_app_ttc/widget/my_shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
   callLoginApi(var mobilenum) async{
 
     LoginResponse? loginResponse = await Api().getLogin(
-        mobile:mobilenum
+        mobile:mobilenum,gid: 5
     );
 
     if(loginResponse!.success ==1){
@@ -70,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> OtpPage()),
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavController()),
       );
     }else {
       Fluttertoast.showToast(
@@ -168,6 +169,15 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white),
                     ),
                     onPressed: () {
+
+                         Future.delayed(const Duration(seconds: 3), (){
+                           setState(() {
+                             isLoading = true;
+                           }
+                                       );
+                                        }
+                                        );
+
                       if (phone.text.toString().isEmpty) {
                         _showMyDialog(context, "Please Enter Phone number");
 

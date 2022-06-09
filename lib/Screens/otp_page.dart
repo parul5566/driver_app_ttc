@@ -1,7 +1,8 @@
 
 
 import 'package:code_input/code_input.dart';
-import 'package:driver_app_ttc/Models/otp_model.dart';
+import 'package:driver_app_ttc/Models/otpverify.dart';
+import 'package:driver_app_ttc/main.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,18 +24,16 @@ class OtpPageState extends State<OtpPage> {
   var userotp = "";
   var mobilenumber ="";
 
-  callotpApi() async{
-
-    OtpResponse? otpResponse = await Api().getOtp();
-
+  callotpApi(var userotp,) async{
     mobilenumber = await MySharedPreferences.instance.getStringValue("phone");
-    userotp = await MySharedPreferences.instance.getStringValue("userotp");
+    Otpverifyresponse? otpResponse = await Api().getOtp(userotp:userotp,mobile:mobilenumber);
     if(otpResponse!.success ==1){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavController()));
     }else {
-    Fluttertoast.showToast(
+  /*  Fluttertoast.showToast(
       msg:'Otp is not corrercts ',
-    );
+    );*/
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavController()));
     }
   }
 
@@ -45,16 +44,19 @@ class OtpPageState extends State<OtpPage> {
   @override
   void initState() {
     super.initState();
-    callotpApi();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('OTP PAGE'),
+        leading: IconButton(
+          icon: Icon(Icons.keyboard_arrow_left_outlined),
+          onPressed: () =>  Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginPage())),   // will open the Widget defined in property 'drawer'
+        ),
         backgroundColor: AppColors.deep_orange,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
+        title: const Text("Otp Page"),
       ),
       body:  Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +73,10 @@ class OtpPageState extends State<OtpPage> {
             length: 6,
             keyboardType: TextInputType.number,
             builder: CodeInputBuilders.darkCircle(),
-            onFilled: (value) => print('Your input is $value.'),
+            onFilled: (value) => {
+              userotp =value,
+              print("otp"+userotp),
+            },
           ),
           SizedBox(height: 50,),
           InkWell(
@@ -83,7 +88,7 @@ class OtpPageState extends State<OtpPage> {
               child: Text("Submit", style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20, color: Colors.white)),
             ),
             onTap: (){
-              callotpApi();
+              callotpApi(userotp);
 
               /*if ((value ?? '') == '') {
 

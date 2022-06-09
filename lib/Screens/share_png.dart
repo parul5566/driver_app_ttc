@@ -1,318 +1,85 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_share/flutter_share.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 
-import '../widget/AppColors.dart';
 
-class ShareLink extends StatefulWidget {
-  @override
-  _ShareLinkState createState() => _ShareLinkState();
-}
 
-class _ShareLinkState extends State<ShareLink> {
+class ShareApp extends StatelessWidget {
 
-  final _formKey = GlobalKey<FormState>();
+  final _controller = ScreenshotController();
 
-  late String url, message;
-  late String generatedFacebookUrl, generatedTwitterUrl, generatedLinkedInUrl;
-  bool fburlGenerated = false, twitterurlGenerated = false, linkedinurlGenerated = false, copiedfbLink = false, copiedtwitterLink = false, copiedLinkedinLink = false, validate = false;
+   ShareApp({Key? key}) : super(key: key);
 
-  String _facebookLinkBuilder({url,message}){
-    String link = "https://www.facebook.com/sharer/sharer.php?u=$url";
-    print("facebook link :"+link);
-    setState(() {
-      generatedFacebookUrl = link;
-      fburlGenerated = true;
-    });
-    return link;
+  Future<void> share() async {
+    await FlutterShare.share(
+        title: 'Example share',
+        text: 'Example share text',
+        linkUrl: 'https://flutter.dev/',
+        chooserTitle: 'Example Chooser Title');
   }
 
-  String _twitterLinkBuilder({url,message}){
-    String updatedMessage = message.toString().replaceAll(" ", "%20");
-    String updatedUrl = url.toString().replaceAll(":", "%3A");
-    updatedUrl = updatedUrl.toString().replaceAll("/", "%2F");
-    updatedUrl = updatedUrl.toString().replaceAll("#", "%23");
-    String link = "https://twitter.com/intent/tweet?url=$updatedUrl&text=$updatedMessage";
-    print(link);
-    setState(() {
-      generatedTwitterUrl = link;
-      twitterurlGenerated = true;
-    });
-    return link;
+  Future<void> shareFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null || result.files.isEmpty) return null;
+
+    await FlutterShare.shareFile(
+      title: 'Example share',
+      text: 'Example share text',
+      filePath: result.files[0] as String,
+    );
   }
 
-  String _linkedinLinkBuilder({url,message}){
-    String updatedMessage = message.toString().replaceAll(" ", "%20");
-    String updatedUrl = url.toString().replaceAll(":", "%3A");
-    updatedUrl = updatedUrl.toString().replaceAll("/", "%2F");
-    updatedUrl = updatedUrl.toString().replaceAll("#", "%23");
-    String link = "http://www.linkedin.com/shareArticle?mini=true&url=$updatedUrl&text=$updatedMessage";
-    print(link);
-    setState(() {
-      generatedLinkedInUrl = link;
-      linkedinurlGenerated = true;
-    });
-    return link;
+  Future<void> shareScreenshot() async {
+    Directory? directory;
+    if (Platform.isAndroid) {
+      directory = await getExternalStorageDirectory();
+    } else {
+      directory = await getApplicationDocumentsDirectory();
+    }
+    final String localPath =
+        '${directory!.path}/${DateTime.now().toIso8601String()}.png';
+
+    await _controller.captureAndSave(localPath);
+
+    await Future.delayed(Duration(seconds: 1));
+
+    await FlutterShare.shareFile(
+        title: 'Compartilhar comprovante',
+        filePath: localPath,
+        fileType: 'image/png'
+    );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.keyboard_arrow_left_outlined),
-          onPressed: () => Navigator.pop(context),   // will open the Widget defined in property 'drawer'
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('ShareApp'),
         ),
-        backgroundColor: AppColors.deep_orange,
-        automaticallyImplyLeading: true,
-        title: const Text("Share App"),
-      ),
-      body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            Container(
-              height: double.infinity,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.blue[100],
-                borderRadius: BorderRadius.all(Radius.circular(8)),
-              ),),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 30,),
-                    Text("Generate Link for Facebook, Twitter & LinkedIn",style: TextStyle(
-                        color: Colors.blue[400],fontSize: 16
-                    ),),
-                    SizedBox(height: 20,),
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                            width: double.infinity,
-                            margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue),
-                                borderRadius:
-                                BorderRadius.circular(50)),
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(left: 20),
-                                  height: 22,
-                                  width: 22,
-                                  child: Icon(
-                                    Icons.link,
-                                    color: Colors.blue[500],
-                                    size: 20,
-                                  ),
-                                ),
-                              ],
-                            )),
-                        Container(
-                            height: 50,
-                            margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                            padding: EdgeInsets.fromLTRB(50, 10, 0, 10),
-                            child: TextFormField(
-                              onSaved: (val) {
-                                setState(() {
-                                  url = val!;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'Share Link',
-                                focusedBorder: InputBorder.none,
-                                border: InputBorder.none,
-                                hintStyle:
-                                TextStyle(color: Colors.blue[500]),
-                              ),
-                              style: TextStyle(
-                                  fontSize: 15, color: Colors.blue[500]),
-                            )),
-                      ],
-                    ),
-                    SizedBox(height: 6,),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                      child: Text("Must include https://...",
-                        style: TextStyle(fontSize: 14,color: Colors.blue[400]),
-                        textAlign: TextAlign.center,),
-                    ),
-                    SizedBox(height: 16,),
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                            width: double.infinity,
-                            margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue),
-                                borderRadius:
-                                BorderRadius.circular(50)),
-                            child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  margin: EdgeInsets.only(left: 20),
-                                  height: 22,
-                                  width: 22,
-                                  child: Icon(
-                                    Icons.message,
-                                    color: Colors.blue[500],
-                                    size: 20,
-                                  ),
-                                ),
-                              ],
-                            )),
-                        Container(
-                            height: 50,
-                            margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                            padding: EdgeInsets.fromLTRB(50, 10, 0, 10),
-                            child: TextFormField(
-                              onSaved: (val) {
-                                setState(() {
-                                  message = val!;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'Message',
-                                focusedBorder: InputBorder.none,
-                                border: InputBorder.none,
-                                hintStyle:
-                                TextStyle(color: Colors.blue[500]),
-                              ),
-                              style: TextStyle(
-                                  fontSize: 15, color: Colors.blue[500]),
-                            )),
-                      ],
-                    ),
-                    SizedBox(height: 8,),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                      child: Text("The message which will be shared",
-                        style: TextStyle(fontSize: 14,color: Colors.blue[400]),
-                        textAlign: TextAlign.center,),
-                    ),
-                    SizedBox(height: 24,),
-                    InkWell(
-                      onTap: () {
-                        _formKey.currentState?.save();
-                        if(url.isEmpty || message.isEmpty){
-                          setState(() {
-                            validate = true;
-                          });
-                        }else{
-                          _facebookLinkBuilder(url: url,message: message);
-                          _twitterLinkBuilder(url: url,message: message);
-                          _linkedinLinkBuilder(url: url,message: message);
-
-                        }
-                      },
-                      child: Container(
-                        height: 45,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50)),
-                        margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                        child: Center(
-                            child: Text(
-                              'Generate Link',
-                              style: TextStyle(fontSize: 16, color: Colors.blue[400], fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                    ),
-                    SizedBox(height: 8,),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                      child: Text(validate ? '''Make Sure both feilds are filled '''+
-                          ''''then click "Generate Link"''':"",
-                        style: TextStyle(fontSize: 14,color: Colors.red[400]),
-                        textAlign: TextAlign.center,),
-                    ),
-                    SizedBox(height: 20,),
-                    Flexible(
-                      child: Wrap(
-                        children: <Widget>[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              InkWell(
-                                child: Text(!twitterurlGenerated ? "": generatedTwitterUrl,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 14),),
-                                onTap: ()  {
-                                },),
-                              SizedBox(height: 8,),
-                              twitterurlGenerated ? GestureDetector(
-                                  onTap: (){
-                                    Clipboard.setData(new ClipboardData(text: generatedTwitterUrl));
-                                    setState(() {
-                                      copiedtwitterLink = true;
-                                    });
-                                  },
-                                  child: Icon(Icons.content_copy,color: copiedtwitterLink ? Colors.blue:Colors.black26,)
-                              ):Container(),
-                              SizedBox(height: 20,),
-                              InkWell(
-                                child: Text(!fburlGenerated ? "": generatedFacebookUrl,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 14),),
-                                onTap: ()  {
-                                },),
-                              SizedBox(height: 8,),
-                              //FACEBOOK
-                              fburlGenerated ? GestureDetector(
-                                  onTap: (){
-                                    Clipboard.setData(new ClipboardData(text: generatedFacebookUrl));
-                                    setState(() {
-                                      copiedfbLink = true;
-                                    });
-                                  },
-                                  child: Icon(Icons.content_copy,color: copiedfbLink ? Colors.blue:Colors.black26,)
-                              ):Container(),
-                              //LinkedIn
-                              SizedBox(height: 20,),
-                              //FACEBOOK
-                              InkWell(
-                                child: Text(!linkedinurlGenerated ? "": generatedLinkedInUrl,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 14),),
-                                onTap: ()  {
-                                },),
-                              SizedBox(height: 8,),
-                              linkedinurlGenerated ? GestureDetector(
-                                  onTap: (){
-                                    Clipboard.setData(new ClipboardData(text: generatedLinkedInUrl));
-                                    setState(() {
-                                      copiedLinkedinLink = true;
-                                    });
-                                  },
-                                  child: Icon(Icons.content_copy,color: copiedLinkedinLink ? Colors.blue:Colors.black26,)
-                              ):Container(),
-
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+        body: Center(
+          child: Screenshot(
+            controller: _controller,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextButton(
+                  child: Text('Share text and link'),
+                  onPressed: share,
                 ),
-              ),
+
+
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-
-

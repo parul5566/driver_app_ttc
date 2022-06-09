@@ -1,13 +1,14 @@
 
 import 'dart:convert';
 import 'package:driver_app_ttc/Models/VehicleModel.dart';
+import 'package:driver_app_ttc/Models/otpverify.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 
 import '../Models/FuelResoponse.dart';
 import '';
 import '../Models/login_model.dart';
-import '../Models/otp_model.dart';
+
 
   class Api   {
     Future<VehicleListResponse ?> getvechillist() async {
@@ -20,12 +21,25 @@ import '../Models/otp_model.dart';
         return VehicleListResponse.fromJson(data);
       }
     }
-
-
-
-    Future<LoginResponse?> getLogin({var mobile}) async {
+    Future<VehicleListResponse?> getvehiclefuel({var uid,var vid,var mtr,var amt,var ltr,var todayprice}) async {
       final response = await http.get(
-          Uri.parse("http://ibell.in/api2/login/sendotp?mobile=$mobile"));
+          Uri.parse("http://ibell.in/api2/Vehicle/fuel?uid=$uid&vid=$vid&mtr=$mtr&amt=$amt&ltr=$ltr&todayprice=$todayprice"));
+      try {
+        if (response.statusCode == 200) {
+
+          return VehicleListResponse.fromJson(jsonDecode(response.body));
+        } else {
+          throw Exception();
+        }
+      } on Exception {
+        return VehicleListResponse.fromJson(jsonDecode(response.body));
+      }
+    }
+
+
+    Future<LoginResponse?> getLogin({var mobile,var gid}) async {
+      final response = await http.get(
+          Uri.parse("http://ibell.in/api2/login/sendotp?mobile=$mobile&gid=$gid"));
       try {
         if (response.statusCode == 200) {
           return LoginResponse.fromJson(jsonDecode(response.body));
@@ -37,17 +51,21 @@ import '../Models/otp_model.dart';
       }
     }
 
-    Future<OtpResponse?> getOtp(/*{var userotp, var mobile }*/) async {
+    Future<Otpverifyresponse?> getOtp({var userotp, var mobile }) async {
+      print("otp"+userotp +"usermob: "+mobile);
       final response = await http.get(
-          Uri.parse("https://ibell.in/api2/login/verifyotp?userotp=782201&mobile=918591776864"));
+          Uri.parse("https://ibell.in/api2/login/verifyotp?userotp=$userotp&mobile=$mobile"));
       try {
         if (response.statusCode == 200) {
-          return OtpResponse.fromJson(jsonDecode(response.body));
+          print("responsedata >>>>>>> "+response.body);
+          return Otpverifyresponse.fromJson(jsonDecode(response.body));
         } else {
+          print("responsedata >>>>>>> "+response.body);
           throw Exception();
         }
       } on Exception {
-        return OtpResponse.fromJson(jsonDecode(response.body));
+        print("responsedata >>>>>>> "+response.body);
+        return Otpverifyresponse.fromJson(jsonDecode(response.body));
       }
     }
 
