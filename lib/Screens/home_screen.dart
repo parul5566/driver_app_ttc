@@ -19,13 +19,19 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late String vid = "";
-
+  late String uid = "";
+  late String mtr = "";
+  late String amt = "";
+  late String ltr = "";
+  late String todayprice = "";
 
 
   final List<Data> _statelist = [];
+  final List<Data> _fultoday = [];
   var vechleid = "";
   String dropdownValuestate = "";
   bool isLoading = true;
+
 
 
 
@@ -47,6 +53,8 @@ class _HomePageState extends State<HomePage> {
     mobilenumber = await MySharedPreferences.instance.getStringValue("phone");
     userpointbal = await MySharedPreferences.instance.getStringValue("point");
     fuleamt = await MySharedPreferences.instance.getStringValue("fuleamt");
+    ltr = await MySharedPreferences.instance.getStringValue("ltr");
+    amt = await MySharedPreferences.instance.getStringValue("amt");
     payamt = await MySharedPreferences.instance.getStringValue("payamt");
     var groupid = await MySharedPreferences.instance.getStringValue("groupid");
 
@@ -61,6 +69,22 @@ class _HomePageState extends State<HomePage> {
   }
 
 
+  gettodaydata() async {
+    VehicleListResponse? categorieResponse =await Api().getvehiclefuel();
+
+    if (categorieResponse!.success == 1) {
+      setState(() {
+        _fultoday.addAll(categorieResponse.data);
+      });
+    } else {
+
+    }
+  }
+
+
+
+
+
   getstatedata() async {
     VehicleListResponse? categoriesResponse =await Api().getvechillist();
 
@@ -68,12 +92,15 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _statelist.addAll(categoriesResponse.data);
       });
-    } else {}
+    } else {
+
+    }
   }
   @override
   void initState() {
     getdata();
     getstatedata();
+    gettodaydata();
     // TODO: implement initState
     super.initState();
 
@@ -178,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                                fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
-                           Text('15 L',style: TextStyle(
+                           Text("15 L",style: TextStyle(
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),

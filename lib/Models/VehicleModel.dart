@@ -43,3 +43,24 @@ class Data {
     return _data;
   }
 }
+
+
+
+class ExpenseList {
+  String uid;
+  String vid;
+  String mtr;
+  String amt;
+ late String ltr;
+  String todayprice;
+
+
+  ExpenseList({
+     required this.uid,
+    required this.vid,
+    required this.mtr,
+    required this.amt,
+    required this.ltr,
+    required this.todayprice,
+  });
+}

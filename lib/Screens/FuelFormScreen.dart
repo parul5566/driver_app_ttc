@@ -7,6 +7,7 @@ import '../../Widget/my_shared_preferences.dart';
 import '../../services/Api.dart';
 import '../Models/FuelResoponse.dart';
 import '../Models/FuelResoponse.dart';
+import '../Models/VehicleModel.dart';
 import '../widget/AppColors.dart';
 import '../widget/bottom_nav_controller.dart';
 class FuelFormScreen extends StatefulWidget {
@@ -31,10 +32,25 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   TextEditingController fuleamt = TextEditingController();
   TextEditingController bmtrreading = TextEditingController();
 
+  final amtController = TextEditingController();
+  final ltrController = TextEditingController();
+  final todaypriceController = TextEditingController();
+
+
   String finalDate = '';
   final List _products = [];
 
 
+  final List<VehicleListResponse> vehiclelistresponse = [];
+
+  void getvehiclefuel({var uid,var vid,var mtr,var amt,var ltr,var todayprice}) {
+    final expense = VehicleListResponse(data: [], msg: '', success: 1,
+
+    );
+    setState(() {
+      vehiclelistresponse.add(expense);
+    });
+  }
 
 
 
