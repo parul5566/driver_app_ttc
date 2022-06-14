@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:driver_app_ttc/Services/Api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Widget/my_shared_preferences.dart';
 import '../widget/AppColors.dart';
 import '../widget/data_show.dart';
@@ -24,7 +25,9 @@ class _HomePageState extends State<HomePage> {
   late String amt = "";
   late String ltr = "";
   late String todayprice = "";
-
+  final amtController = TextEditingController();
+  final ltrController = TextEditingController();
+  final todaypriceController = TextEditingController();
 
   final List<Data> _statelist = [];
   final List<Data> _fultoday = [];
@@ -46,7 +49,14 @@ class _HomePageState extends State<HomePage> {
 
 
 
-
+  _retrieveValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      amtController.text = prefs.getString('amt') ?? "";
+      ltrController.text = prefs.getString('ltr') ?? "";
+      todaypriceController.text =prefs.getString('todayprice') ?? "";
+    });
+  }
 
   getdata() async {
     username = await MySharedPreferences.instance.getStringValue("name");
@@ -56,6 +66,7 @@ class _HomePageState extends State<HomePage> {
     ltr = await MySharedPreferences.instance.getStringValue("ltr");
     amt = await MySharedPreferences.instance.getStringValue("amt");
     payamt = await MySharedPreferences.instance.getStringValue("payamt");
+    todayprice = await MySharedPreferences.instance.getStringValue("todayprice");
     var groupid = await MySharedPreferences.instance.getStringValue("groupid");
 
     setState(() {
@@ -205,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
-                           Text("15 L",style: TextStyle(
+                           Text(username,style: TextStyle(
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
@@ -230,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
-                           Text('500 ',style: TextStyle(
+                           Text(username,style: TextStyle(
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),

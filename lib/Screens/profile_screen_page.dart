@@ -1,13 +1,7 @@
-import 'package:driver_app_ttc/Screens/fuelhistory.dart';
-import 'package:driver_app_ttc/Screens/profile_screen.dart';
-import 'package:driver_app_ttc/Screens/share_png.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../Widget/my_shared_preferences.dart';
-import '../main.dart';
-import '../widget/button_widget.dart';
-import '../widget/textfield_widget.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,7 +11,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
 
   late String groupid = "";
   late String userid = "";
@@ -64,8 +57,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text('Profile Page'),
       ),
       body: SingleChildScrollView(
-        child: Stack(children: [
-
+        child: Stack(
+            children: [
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -202,7 +195,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: EdgeInsets.fromLTRB(30,0,0,0),
                           child:TextField(
                             keyboardType: TextInputType.text,
-
                             decoration: InputDecoration(
                               prefixIcon: Icon(Icons.meeting_room_outlined, color: Colors.blue),
                               filled: true,

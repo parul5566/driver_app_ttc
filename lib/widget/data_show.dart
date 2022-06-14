@@ -48,6 +48,8 @@ class _DataShowState extends State<DataShow> {
                         color:
                         connected ? Color(0xFF00EE44) : Color(0xFF990000),
                         child: connected
+
+
                             ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -57,6 +59,7 @@ class _DataShowState extends State<DataShow> {
                             ),
                           ],
                         )
+
                             : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -79,6 +82,9 @@ class _DataShowState extends State<DataShow> {
                             ),
                           ],
                         ),
+
+
+
                       ),
                     ),
                   ],

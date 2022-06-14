@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Widget/my_shared_preferences.dart';
 import '../../services/Api.dart';
 import '../Models/FuelResoponse.dart';
@@ -34,6 +35,18 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   final todaypriceController = TextEditingController();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   String finalDate = '';
   final List _products = [];
 
@@ -47,6 +60,15 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
     });
   }
 
+
+  _retrieveValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      amtController.text = prefs.getString('amt') ?? "";
+      ltrController.text = prefs.getString('ltr') ?? "";
+      todaypriceController.text =prefs.getString('todayprice') ?? "";
+    });
+  }
 
 
 
@@ -86,6 +108,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   void initState() {
     getdatastp();
     getcategotydata();
+    _retrieveValues();
     super.initState();
   }
 
@@ -111,7 +134,8 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
             elevation: 4,
             child: Column(
               children: [
-                const Padding(
+
+                 Padding(
                   padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
                   child: Align(
                     alignment:Alignment.centerLeft,
@@ -130,7 +154,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                   ),
                 ),
 
-                Padding(
+                 Padding(
                   padding:  EdgeInsets.all(10),
                   child: Column(
                     children: [
@@ -160,7 +184,8 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                     ],
                   ),
                 ),
-                Padding(
+
+                 Padding(
                   padding:  EdgeInsets.all(10),
                   child: Container(
                     child:  Center(
@@ -196,7 +221,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                   ),
                 ),
 
-                Padding(
+                 Padding(
                   padding:  EdgeInsets.all(10),
                   child: Container(
                     child:  Center(
@@ -232,7 +257,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                   ),
                 ),
 
-                Padding(
+                 Padding(
                   padding:  EdgeInsets.all(10),
                   child: Container(
                     child:  Center(
@@ -265,7 +290,8 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                     height: 50,
                   ),
                 ),
-                Card(
+
+                 Card(
                   child: SizedBox(
                     height: 40.0,
                     width: MediaQuery.of(context).size.width * 1.0,
@@ -284,13 +310,16 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             const Color(0xFF1E90FF)),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        prefs.setString('amt', amtController.text);
+                        prefs.setString('ltr', ltrController.text);
+                        prefs.setString('todayprice', todaypriceController.text);
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const BottomNavController(
-
-                          )),
+                          MaterialPageRoute(builder: (context) => const BottomNavController()),
                         );
+
                       },
                       label: const Text('Submit',
                           style: TextStyle(
@@ -303,6 +332,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                     ),
                   ),
                 ),
+
               ],
             ),
           ),

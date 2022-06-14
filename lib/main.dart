@@ -6,9 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-
-
 import 'Models/login_model.dart';
 import 'Screens/otp_page.dart';
 import 'Services/Api.dart';
@@ -71,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> BottomNavController()),
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavController()),
       );
     }else {
       Fluttertoast.showToast(

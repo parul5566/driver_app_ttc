@@ -16,14 +16,12 @@ class ProflePage extends StatefulWidget {
 
 class _ProflePageState extends State<ProflePage> {
 
-
   late String groupid = "";
   late String userid = "";
   var username = "";
   var mobilenumber = "";
   var userpointbal = "";
   var profile = "";
-
 
   getdata() async {
     username = await MySharedPreferences.instance.getStringValue("name");
@@ -52,7 +50,8 @@ class _ProflePageState extends State<ProflePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Stack(children: [
+        child: Stack(
+        children: [
           Container(
             width: MediaQuery.of(context).size.width,
             height: 175.0,
