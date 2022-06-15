@@ -30,22 +30,11 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   TextEditingController fuleamt = TextEditingController();
   TextEditingController bmtrreading = TextEditingController();
 
+  final formKey = GlobalKey<FormState>();
+
   final amtController = TextEditingController();
   final ltrController = TextEditingController();
   final todaypriceController = TextEditingController();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   String finalDate = '';
   final List _products = [];
@@ -61,14 +50,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   }
 
 
-  _retrieveValues() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      amtController.text = prefs.getString('amt') ?? "";
-      ltrController.text = prefs.getString('ltr') ?? "";
-      todaypriceController.text =prefs.getString('todayprice') ?? "";
-    });
-  }
+
 
 
 
@@ -108,7 +90,6 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   void initState() {
     getdatastp();
     getcategotydata();
-    _retrieveValues();
     super.initState();
   }
 
@@ -194,7 +175,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(30,0,0,0),
                           child:TextField(
-
+                            controller: amtController,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly
@@ -230,6 +211,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(30,0,0,0),
                           child:TextField(
+                            controller: ltrController,
                             keyboardType: TextInputType.numberWithOptions(decimal: true),
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
@@ -266,6 +248,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(30,0,0,0),
                           child:TextField(
+                            controller: todaypriceController,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly
@@ -311,15 +294,23 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                             const Color(0xFF1E90FF)),
                       ),
                       onPressed: () async {
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.setString('amt', amtController.text);
-                        prefs.setString('ltr', ltrController.text);
-                        prefs.setString('todayprice', todaypriceController.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const BottomNavController()),
-                        );
 
+                        if(formKey.currentState!.validate()) {
+                          var getamt = amtController.text;
+                          var getltr = ltrController.text;
+                          var gettodayprice = todaypriceController.text;
+
+                          MySharedPreferences.instance
+                              .setStringValue("amt", getamt);
+                          MySharedPreferences.instance
+                              .setStringValue("ltr", getltr);
+                          MySharedPreferences.instance
+                              .setStringValue("password", gettodayprice);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (_) => BottomNavController()),
+                          );
+                        }
                       },
                       label: const Text('Submit',
                           style: TextStyle(

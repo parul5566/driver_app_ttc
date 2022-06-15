@@ -132,7 +132,8 @@ class _FuelhistoryState extends State<Fuelhistory> {
                     ],
                   )),
             );
-          });
+          }
+          );
     }
   }
 }

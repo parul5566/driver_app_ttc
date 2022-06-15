@@ -1,25 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
+import '../Models/day_ended.dart';
 
-import '../Models/day_start.dart';
-
-Future<DayStartedResponse?> fetchAlbum({var uid,var mtr,var vid}) async {
+Future<DayEndedResponse?> fetchAlbum({var uid,var mtr,var vid,var rid}) async {
   EasyLoading.show(
       status: 'Please Wait...', maskType: EasyLoadingMaskType.black);
   final response = await http.get(
-      Uri.parse('http://ibell.in/api2/Vehicle/daystart?uid=$uid&mtr=$mtr&vid=$vid'));
+      Uri.parse('http://ttcrobotronics.com/demo/bell/api2/vehicle/daystop?uid=$uid&mtr=$mtr&vid=$vid&rid=3'));
   var data = jsonDecode(response.body.toString());
   if (response.statusCode == 200) {
     print(response.body);
     EasyLoading.dismiss();
-    return DayStartedResponse.fromJson(data);
+    return DayEndedResponse.fromJson(data);
   } else {
     EasyLoading.dismiss();
-    return DayStartedResponse.fromJson(data);
+    return DayEndedResponse.fromJson(data);
   }
 }
 
@@ -27,44 +25,40 @@ Future<DayStartedResponse?> fetchAlbum({var uid,var mtr,var vid}) async {
 
 
 
-class DayStart extends StatefulWidget {
-  const DayStart({super.key});
+class DayStop extends StatefulWidget {
+  const DayStop({super.key});
 
   @override
-  _DayStartState createState() => _DayStartState();
+  _DayStopState createState() => _DayStopState();
 }
 
-class _DayStartState extends State<DayStart> {
-  late Future<DayStartedResponse?> futureAlbum;
+class _DayStopState extends State<DayStop> {
+  late Future<DayEndedResponse?> futureAlbums;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum() as Future<DayStartedResponse?>;
+    futureAlbums = fetchAlbum() as Future<DayEndedResponse?>;
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
 
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: Scaffold(
-
-
         body: Center(
-          child: FutureBuilder<DayStartedResponse?>(
-            future: futureAlbum,
+          child: FutureBuilder<DayEndedResponse?>(
+            future: futureAlbums,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Text(snapshot.data!.msg);
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
-
               // By default, show a loading spinner.
-              return const CircularProgressIndicator();
+              return const CircularProgressIndicator(
+
+              );
             },
           ),
         ),

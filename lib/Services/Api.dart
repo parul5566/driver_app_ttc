@@ -7,10 +7,12 @@ import 'package:http/http.dart' as http;
 
 import '../Models/FuelResoponse.dart';
 import '';
+import '../Models/day_start.dart';
 import '../Models/login_model.dart';
 
 
   class Api   {
+
     Future<VehicleListResponse ?> getvechillist() async {
       final response = await http.get(
           Uri.parse('http://ibell.in/api2/Vehicle'));
@@ -21,6 +23,7 @@ import '../Models/login_model.dart';
         return VehicleListResponse.fromJson(data);
       }
     }
+
     Future<VehicleListResponse?> getvehiclefuel({var uid,var vid,var mtr,var amt,var ltr,var todayprice}) async {
       final response = await http.get(
           Uri.parse("http://ibell.in/api2/Vehicle/fuel?uid=$uid&vid=$vid&mtr=$mtr&amt=$amt&ltr=$ltr&todayprice=$todayprice"));
@@ -51,6 +54,7 @@ import '../Models/login_model.dart';
       }
     }
 
+
     Future<Otpverifyresponse?> getOtp({var userotp, var mobile }) async {
       print("otp"+userotp +"usermob: "+mobile);
       final response = await http.get(
@@ -69,6 +73,7 @@ import '../Models/login_model.dart';
       }
     }
 
+
     Future<FuelResponse?> getProductsApi({var uid}) async {
       EasyLoading.show(
           status: 'Please Wait...', maskType: EasyLoadingMaskType.black);
@@ -82,6 +87,29 @@ import '../Models/login_model.dart';
       } else {
         EasyLoading.dismiss();
         return FuelResponse.fromJson(data);
+      }
+    }
+
+
+
+
+
+
+
+
+    Future<DayStartedResponse?> fetchAlbum({var uid,var mtr,var vid}) async {
+      EasyLoading.show(
+          status: 'Please Wait...', maskType: EasyLoadingMaskType.black);
+      final response = await http.get(
+          Uri.parse('http://ibell.in/api2/Vehicle/daystart?uid=$uid&mtr=$mtr&vid=$vid'));
+      var data = jsonDecode(response.body.toString());
+      if (response.statusCode == 200) {
+        print(response.body);
+        EasyLoading.dismiss();
+        return DayStartedResponse.fromJson(data);
+      } else {
+        EasyLoading.dismiss();
+        return DayStartedResponse.fromJson(data);
       }
     }
 

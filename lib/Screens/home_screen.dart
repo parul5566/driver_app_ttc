@@ -19,12 +19,38 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
+
+
+
+
+
+
+  String ltr = "";
+  String todayprice = "";
+
+  ProfileState() {
+    MySharedPreferences.instance
+        .getStringValue("ltr")
+        .then((value) => setState(() {
+      ltr = value;
+    }));
+    MySharedPreferences.instance
+        .getStringValue("todayprice")
+        .then((value) => setState(() {
+      todayprice = value;
+    }));
+  }
+
+
+
+
+
   late String vid = "";
   late String uid = "";
   late String mtr = "";
   late String amt = "";
-  late String ltr = "";
-  late String todayprice = "";
   final amtController = TextEditingController();
   final ltrController = TextEditingController();
   final todaypriceController = TextEditingController();
@@ -216,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                                fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
-                           Text(username,style: TextStyle(
+                           Text(ltr,style: TextStyle(
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
@@ -241,7 +267,7 @@ class _HomePageState extends State<HomePage> {
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),
-                           Text(username,style: TextStyle(
+                           Text(todayprice,style: TextStyle(
                              fontWeight: FontWeight.normal,
                              color: Colors.white,fontSize: 15,
                            ),),

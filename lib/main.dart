@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'Models/login_model.dart';
-import 'Screens/otp_page.dart';
 import 'Services/Api.dart';
 
 
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginPage()
+        home: BottomNavController(),
     );
   }
 }
@@ -32,26 +31,18 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 class _LoginPageState extends State<LoginPage> {
-
-
-
-
-
-
-
   double getSmallDiameter(BuildContext context) =>
       MediaQuery.of(context).size.width * 2 / 3;
   double getBiglDiameter(BuildContext context) =>
       MediaQuery.of(context).size.width * 7 / 8;
 
-  final formKey = GlobalKey<FormState>();
 
+  final formKey = GlobalKey<FormState>();
   bool isLoading = false;
   final passwordText = TextEditingController();
 
   //MARK:API Call
   callLoginApi(var mobilenum) async{
-
     LoginResponse? loginResponse = await Api().getLogin(
         mobile:mobilenum,gid: 5
     );
@@ -59,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
     if(loginResponse!.success ==1){
       MySharedPreferences.instance.setStringValue("userid", loginResponse.data.id);
       MySharedPreferences.instance.setStringValue("name", loginResponse.data.name);
-
       MySharedPreferences.instance.setStringValue("city", loginResponse.data.city);
       MySharedPreferences.instance.setStringValue("phone", loginResponse.data.phone);
       MySharedPreferences.instance.setStringValue("area", loginResponse.data.area);
@@ -67,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("state", loginResponse.data.state);
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
-
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavController()),
       );
     }else {
@@ -82,10 +71,6 @@ class _LoginPageState extends State<LoginPage> {
   final phone = TextEditingController();
   bool _validate = false;
   bool isLoggedIn = false;
-
-
-
-
 
   String validateMobile(String value) {
     String patttern = r'(^[0-9]*$)';
@@ -123,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
 
                   children:[
+
                     TextFormField(
                       controller: phone,
                       focusNode: _phoneFocus,
@@ -147,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                           enabledBorder: InputBorder.none,
                           labelStyle: const TextStyle(color: Colors.grey)),
                     ),
+
                   ],
                 ),
               ),
