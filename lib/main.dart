@@ -1,4 +1,5 @@
 
+import 'package:driver_app_ttc/Screens/otp_page.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:driver_app_ttc/widget/bottom_nav_controller.dart';
 import 'package:driver_app_ttc/widget/my_shared_preferences.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'Models/login_model.dart';
+import 'Screens/fuel_form.dart';
 import 'Services/Api.dart';
 
 
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: BottomNavController(),
+        home: LoginPage(),
     );
   }
 }
@@ -57,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("state", loginResponse.data.state);
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const BottomNavController()),
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>  OtpPage()),
       );
     }else {
       Fluttertoast.showToast(

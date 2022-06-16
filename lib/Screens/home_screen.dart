@@ -8,6 +8,7 @@ import '../Widget/my_shared_preferences.dart';
 import '../widget/AppColors.dart';
 import '../widget/data_show.dart';
 import 'FuelFormScreen.dart';
+import 'fuel_form.dart';
 
 
 
@@ -213,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onTap: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (BuildContext ctx) => const FuelFormScreen()));
+                        MaterialPageRoute(builder: (BuildContext ctx) => const FuelFormPage()));
 
                   },
                 ),
@@ -221,8 +222,13 @@ class _HomePageState extends State<HomePage> {
             ),
 
 
-
-             Padding(
+               Center(
+                 child: Container(
+                     width: 400,
+                     height: 220,
+                     child: Profile()),
+               ),
+            /* Padding(
                padding: const EdgeInsets.all(20.0),
                child: Row(
                  mainAxisAlignment: MainAxisAlignment.center,
@@ -232,8 +238,8 @@ class _HomePageState extends State<HomePage> {
                      width: 160,
                      child: Card(
                        color: AppColors.deep_orange,
-                       /*    width: MediaQuery.of(context).size.width,
-                       height: MediaQuery.of(context).size.height,*/
+                       *//*    width: MediaQuery.of(context).size.width,
+                       height: MediaQuery.of(context).size.height,*//*
                        child: Column(
                          mainAxisAlignment: MainAxisAlignment.center,
                          children: [
@@ -257,8 +263,8 @@ class _HomePageState extends State<HomePage> {
                      width: 160,
                      child: Card(
                        color: AppColors.deep_orange,
-                 /*    width: MediaQuery.of(context).size.width,
-                       height: MediaQuery.of(context).size.height,*/
+                 *//*    width: MediaQuery.of(context).size.width,
+                       height: MediaQuery.of(context).size.height,*//*
                        child: Column(
                          mainAxisAlignment: MainAxisAlignment.center,
                          children: [
@@ -278,7 +284,7 @@ class _HomePageState extends State<HomePage> {
                    ),
                  ],
                ),
-             ),
+             ),*/
 
 
             Padding(

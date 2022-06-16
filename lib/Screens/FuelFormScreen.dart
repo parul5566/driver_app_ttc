@@ -40,14 +40,8 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
   final List _products = [];
 
 
-  final List<ExpenseList> vehiclelistresponse = [];
 
-  void getvehiclefuel({var uid,var vid,var mtr,var amt,var ltr,var todayprice}) {
-    final expense = ExpenseList(todayprice: '', uid: '', ltr: '', vid: '', mtr: '', amt: '');
-    setState(() {
-      vehiclelistresponse.add(expense);
-    });
-  }
+
 
 
 
@@ -293,8 +287,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                         backgroundColor: MaterialStateProperty.all<Color>(
                             const Color(0xFF1E90FF)),
                       ),
-                      onPressed: () async {
-
+                      onPressed: ()  {
                         if(formKey.currentState!.validate()) {
                           var getamt = amtController.text;
                           var getltr = ltrController.text;
