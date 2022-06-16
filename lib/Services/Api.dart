@@ -9,6 +9,7 @@ import '../Models/FuelResoponse.dart';
 import '';
 import '../Models/day_start.dart';
 import '../Models/login_model.dart';
+import '../Models/update_profile.dart';
 
 
   class Api   {
@@ -27,14 +28,14 @@ import '../Models/login_model.dart';
 
 
 
-    Future<VehicleListResponse ?> getupdateProfile(var uid,var uname , var area ,var country,var state ,var city , var pincode ,var company,var bankac, var bankname ,var bankbranch , var bankifsc,var cperson) async {
+    Future<UpdatePrefileResponse ?> getupdateProfile(var uid,var uname , var area ,var country,var state ,var city , var pincode ,var company,var bankac, var bankname ,var bankbranch , var bankifsc,var cperson) async {
       final response = await http.get(
           Uri.parse('https://ibell.in/api2/login/profile_update?uid=$uid&uname= $uname &area= $area&country= $country&state=$state&city=$city&pincode= $pincode&company= $company&bankac= $bankac&bankname= $bankname &bankbranch= $bankbranch&bankifsc= $bankifsc&cperson= $cperson&email=abc@gmail.com&gst=45454Ab12&address=ludhiana main city&paytype=phonepe&upi=8591776864&webpassword=123456'));
       var data = jsonDecode(response.body.toString());
       if (response.statusCode == 200) {
-        return VehicleListResponse.fromJson(data);
+        return UpdatePrefileResponse.fromJson(data);
       } else {
-        return VehicleListResponse.fromJson(data);
+        return UpdatePrefileResponse.fromJson(data);
       }
     }
 

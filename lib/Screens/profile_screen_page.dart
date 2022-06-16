@@ -1,7 +1,11 @@
+import 'package:driver_app_ttc/Screens/fuel_form.dart';
+import 'package:driver_app_ttc/Screens/profile_screen.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../Widget/my_shared_preferences.dart';
+import '../widget/bottom_nav_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -11,6 +15,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  final formKey = GlobalKey<FormState>();
 
   late String groupid = "";
   late String userid = "";
@@ -22,7 +28,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   var city = "";
   var state = "";
 
+  TextEditingController controllerEmail = new TextEditingController();
 
+  TextEditingController controllerUserName = new TextEditingController();
+  TextEditingController controllerPassword = new TextEditingController();
 
   getdata() async {
     username = await MySharedPreferences.instance.getStringValue("name");
@@ -64,7 +73,219 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
                 Padding(
+                  padding:  EdgeInsets.all(10),
+                  child: Container(
+                    child:  Center(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(30,0,0,0),
+                          child:TextField(
+                            controller:controllerUserName,
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(Icons.supervised_user_circle_rounded, color: Colors.blue),
+                              filled: true,
+                              hintText: username,
+                              labelText: "User Name",
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                      ],
+                    ),
+                    height: 50,
+                  ),
+                ),
+
+                Padding(
+                  padding:  EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Container(
+                        child:  Center(
+                          child: Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(0,20,0,0),
+                              child:  Text(
+                              mobilenumber,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                          ],
+                        ),
+                        height: 50,
+                      ),
+                    ],
+                  ),
+                ),
+
+
+
+                Padding(
+                  padding:  EdgeInsets.all(10),
+                  child: Container(
+                    child:  Center(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(30,0,0,0),
+                          child:TextField(
+                            controller: controllerUserName,
+                            keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                            ],
+                            decoration: InputDecoration(
+
+                              prefixIcon: Icon(Icons.area_chart, color: Colors.blue),
+                              filled: true,
+                              hintText: area,
+                              labelText: "Area",
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                      ],
+                    ),
+                    height: 50,
+                  ),
+                ),
+                Padding(
+                  padding:  EdgeInsets.all(10),
+                  child: Container(
+                    child:  Center(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(30,0,0,0),
+                          child:TextField(
+                            controller: controllerEmail,
+                            keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                            ],
+                            decoration: InputDecoration(
+
+                              prefixIcon: Icon(Icons.location_city_outlined, color: Colors.blue),
+                              filled: true,
+                              hintText: city,
+                              labelText: "City",
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                      ],
+                    ),
+                    height: 50,
+                  ),
+                ),
+                Padding(
+                  padding:  EdgeInsets.all(10),
+                  child: Container(
+                    child:  Center(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(30,0,0,0),
+                          child:TextField(
+                            controller: controllerEmail,
+                            keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                            ],
+                            decoration: InputDecoration(
+
+                              prefixIcon: Icon(Icons.location_city, color: Colors.blue),
+                              filled: true,
+                              hintText: state,
+                              labelText: "State",
+                            ),
+                          ),
+
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                      ],
+                    ),
+                    height: 50,
+                  ),
+                ),
+
+                SizedBox(height: 10,),
+
+                SizedBox(
+                  width: 330,
+                  height: 40,
+                  child: RaisedButton(
+                    color: Colors.blue,
+                    child: Text("Update",
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
+                    onPressed: () {
+                      if(formKey.currentState!.validate()) {
+                        var getEmail = controllerEmail.text;
+                        var getUserName = controllerUserName.text;
+                        var getPassword = controllerPassword.text;
+
+                        MySharedPreferences.instance
+                            .setStringValue("email", getEmail);
+                        MySharedPreferences.instance
+                            .setStringValue("username", getUserName);
+                        MySharedPreferences.instance
+                            .setStringValue("password", getPassword);
+
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const ProflePage()),
+                        );
+                      }
+                    },
+                  ),
+                )
+
+
+              /*  Padding(
                   padding:  EdgeInsets.all(10),
                   child: Container(
                     child:  Center(
@@ -248,7 +469,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           )),
                     ),
                   ),
-                ),
+                ),*/
               ],
             ),
           ),

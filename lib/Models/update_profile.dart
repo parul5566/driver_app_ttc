@@ -1,3 +1,4 @@
+
 class UpdatePrefileResponse {
   UpdatePrefileResponse({
     required this.success,

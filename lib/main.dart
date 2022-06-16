@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'Models/login_model.dart';
-import 'Screens/fuel_form.dart';
 import 'Services/Api.dart';
 
 
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginPage(),
+        home: BottomNavController(),
     );
   }
 }
@@ -94,102 +93,99 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEEEEEE),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(child: Image.asset('assets/logo.png')),
-              Container(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: Image.asset('assets/logo.png')),
+          Container(
 
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    //border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10)),
-                margin: const EdgeInsets.fromLTRB(20, 30, 20, 10),
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 25),
-                child: Column(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                //border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(10)),
+            margin: const EdgeInsets.fromLTRB(20, 30, 20, 10),
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 25),
+            child: Column(
 
-                  children:[
+              children:[
 
-                    TextFormField(
-                      controller: phone,
-                      focusNode: _phoneFocus,
-                      keyboardType: TextInputType.number,
-                      maxLength: 10,
-                      inputFormatters:
-                      [FilteringTextInputFormatter.digitsOnly],
-                      decoration: InputDecoration(
-                          counterText: "",
-                          counterStyle: TextStyle(fontSize: 0),
-                          hintText: "Mobile Number",
-                          prefixText: "+91",
-                          icon: const Icon(
-                            Icons.phone_android,
-                            color: Color(0xFF1E90FF),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Colors.grey.shade100 ),
-                          ),
-                          labelText: "Phone",
-                          enabledBorder: InputBorder.none,
-                          labelStyle: const TextStyle(color: Colors.grey)),
-                    ),
-
-                  ],
-                ),
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 40,
-                  child: ElevatedButton(
-                    child: const Text(
-                      'Login',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontStyle: FontStyle.normal,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.white),
-                    ),
-                    onPressed: () {
-
-                         Future.delayed(const Duration(seconds: 3), (){
-                           setState(() {
-                             isLoading = true;
-                           }
-                                       );
-                                        }
-                                        );
-
-                      if (phone.text.toString().isEmpty) {
-                        _showMyDialog(context, "Please Enter Phone number");
-
-                      } else{
-                        callLoginApi("91"+phone.text.toString());
-                      }
-                    },
-                    style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all(AppColors.deep_orange),
-                        padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(8.0)),
-                        textStyle: MaterialStateProperty.all(
-                            const TextStyle(fontSize: 18))),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: phone,
+                    focusNode: _phoneFocus,
+                    keyboardType: TextInputType.number,
+                    maxLength: 10,
+                    inputFormatters:
+                    [FilteringTextInputFormatter.digitsOnly],
+                    decoration: InputDecoration(
+                        counterText: "",
+                        counterStyle: TextStyle(fontSize: 0),
+                        hintText: "Mobile Number",
+                        prefixText: "+91",
+                        icon: const Icon(
+                          Icons.phone_android,
+                          color: Color(0xFF1E90FF),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                          BorderSide(color: Colors.grey.shade100 ),
+                        ),
+                        labelText: "Phone",
+                        enabledBorder: InputBorder.none,
+                        labelStyle: const TextStyle(color: Colors.grey)),
                   ),
                 ),
-              ),
 
+              ],
+            ),
+          ),
 
-                  ],
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 40,
+              child: ElevatedButton(
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.white),
                 ),
+                onPressed: () {
+
+                     Future.delayed(const Duration(seconds: 3), (){
+                       setState(() {
+                         isLoading = true;
+                       }
+                                   );
+                                    }
+                                    );
+
+                  if (phone.text.toString().isEmpty) {
+                    _showMyDialog(context, "Please Enter Phone number");
+
+                  } else{
+                    callLoginApi("91"+phone.text.toString());
+                  }
+                },
+                style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all(AppColors.deep_orange),
+                    padding:
+                    MaterialStateProperty.all(const EdgeInsets.all(8.0)),
+                    textStyle: MaterialStateProperty.all(
+                        const TextStyle(fontSize: 18))),
               ),
+            ),
+          ),
 
 
-
-      ),
+              ],
+            ),
     );
   }
   void _showMyDialog(BuildContext context, String msg,) {
@@ -202,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.all(10),
               child: Text(msg),
             ),
-            actions: <Widget>[
+            actions: [
               CupertinoDialogAction(
                   textStyle:
                   const TextStyle(color: Colors.red),

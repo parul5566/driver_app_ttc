@@ -23,6 +23,23 @@ class _ProflePageState extends State<ProflePage> {
   var userpointbal = "";
   var profile = "";
 
+
+  String email = "";
+  ProfileState() {
+    MySharedPreferences.instance
+        .getStringValue("email")
+        .then((value) => setState(() {
+      email = value;
+    }));
+    MySharedPreferences.instance
+        .getStringValue("username")
+        .then((value) => setState(() {
+      username = value;
+    }));
+  }
+
+
+
   getdata() async {
     username = await MySharedPreferences.instance.getStringValue("name");
     mobilenumber = await MySharedPreferences.instance.getStringValue("phone");
