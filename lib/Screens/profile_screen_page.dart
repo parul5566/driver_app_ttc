@@ -1,11 +1,9 @@
-import 'package:driver_app_ttc/Screens/fuel_form.dart';
 import 'package:driver_app_ttc/Screens/profile_screen.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../Widget/my_shared_preferences.dart';
-import '../widget/bottom_nav_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

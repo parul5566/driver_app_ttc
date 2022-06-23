@@ -1,5 +1,3 @@
-
-
 import 'package:code_input/code_input.dart';
 import 'package:driver_app_ttc/Models/otpverify.dart';
 import 'package:driver_app_ttc/main.dart';
@@ -7,7 +5,6 @@ import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../Services/Api.dart';
 import '../Widget/my_shared_preferences.dart';
 import '../widget/bottom_nav_controller.dart';
@@ -19,8 +16,6 @@ class OtpPage extends StatefulWidget {
 }
 
 class OtpPageState extends State<OtpPage> {
-
-
   var userotp = "";
   var mobilenumber ="";
 
