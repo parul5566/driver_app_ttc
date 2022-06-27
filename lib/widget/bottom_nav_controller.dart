@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../Screens/calculation.dart';
 import '../Screens/home_screen.dart';
 import '../Screens/profile_screen.dart';
 import 'AppColors.dart';
@@ -17,6 +18,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
   final _pages = [
      const HomePage(),
     const ProflePage(),
+    TipCalculatorPage(),
   ];
   var _currentIndex = 0;
 
@@ -37,6 +39,10 @@ class _BottomNavControllerState extends State<BottomNavController> {
             icon: Icon(Icons.home),
             label: ("Home"),
           ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.filter_list), label: ("Profile")),
+
+
           BottomNavigationBarItem(
               icon: Icon(Icons.filter_list), label: ("Profile")),
 

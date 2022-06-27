@@ -59,7 +59,7 @@ import '../Models/update_profile.dart';
     Future<LoginResponse?> getLogin({var mobile,var gid}) async {
       final response = await http.get(
           Uri.parse("http://ibell.in/api2/login/sendotp?mobile=$mobile&gid=$gid"));
-      try {
+      try {  
         if (response.statusCode == 200) {
           return LoginResponse.fromJson(jsonDecode(response.body));
         } else {

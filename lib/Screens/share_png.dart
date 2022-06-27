@@ -16,16 +16,16 @@ class ShareApp extends StatelessWidget {
 
   Future<void> share() async {
     await FlutterShare.share(
-        title: 'Example share',
+        title: 'Share Link',
         text: 'Example share text',
-        linkUrl: 'https://flutter.dev/',
-        chooserTitle: 'Example Chooser Title');
+        linkUrl: 'https://play.google.com/store/apps/details?id=com.kampibellbath',
+        chooserTitle: 'Example Chooser Title'
+    );
   }
 
   Future<void> shareFile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result == null || result.files.isEmpty) return null;
-
     await FlutterShare.shareFile(
       title: 'Example share',
       text: 'Example share text',
@@ -72,8 +72,6 @@ class ShareApp extends StatelessWidget {
                   child: Text('Share text and link'),
                   onPressed: share,
                 ),
-
-
               ],
             ),
           ),

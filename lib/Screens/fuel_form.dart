@@ -21,10 +21,52 @@ class FuelFormPageState extends State<FuelFormPage> {
   TextEditingController controllerUserName = new TextEditingController();
   TextEditingController controllerPassword = new TextEditingController();
 
+
+
+
+
+
+  static const defaultBillAmount = 0.0;
+
+  // This is the default tip percentage
+  static const defaultTipPercentage = 15;
+
+  // This is the TextEditingController which is used to keep track of the change in bill amount
+  final _billAmountController =
+  TextEditingController(
+      text: defaultBillAmount.toString()
+  );
+
+  // This is the TextEditingController which is used to keep track of the change in tip percentage
+  final _tipPercentageController =
+  TextEditingController(
+      text: defaultTipPercentage.toString()
+  );
+
+  // This stores the latest value of bill amount calculated
+  double _billAmount = defaultBillAmount;
+
+  // This stores the latest value of tip percentage calculated
+  int _tipPercentage = defaultTipPercentage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
 
     final formKey = GlobalKey<FormState>();
+
 
     // TODO: implement build
     return SafeArea(
@@ -51,24 +93,6 @@ class FuelFormPageState extends State<FuelFormPage> {
 
 
 
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(30, 0, 0, 20),
-                      child: Align(
-                        alignment:Alignment.centerLeft,
-                        child: Text(
-                          'Please Fill Your Data',
-                          overflow: TextOverflow.visible,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            height: 1.171875,
-                            fontSize: 18.0,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.deep_orange,
-                          ),
-                        ),
-                      ),
-                    ),
 
                     Padding(
                       padding:  EdgeInsets.all(10),
@@ -115,11 +139,15 @@ class FuelFormPageState extends State<FuelFormPage> {
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
+
+
+
                                 decoration: InputDecoration(
+
                                   prefixIcon: Icon(Icons.money, color: Colors.blue),
                                   filled: true,
-                                  hintText: "Pament",
-                                  labelText: "Payment",
+                                  hintText: "Today Fuel Price",
+                                  labelText: "Today Fuel Price",
                                 ),
                               ),
 
@@ -155,8 +183,45 @@ class FuelFormPageState extends State<FuelFormPage> {
 
                                   prefixIcon: Icon(Icons.margin, color: Colors.blue),
                                   filled: true,
-                                  hintText: "FuelAmount In Liter",
-                                  labelText: "FuelAmount",
+                                  hintText: "Amount",
+                                  labelText: "Amount",
+                                ),
+                              ),
+
+                            ),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                          boxShadow: const [
+                            BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                          ],
+                        ),
+                        height: 50,
+                      ),
+                    ),
+
+                    Padding(
+                      padding:  EdgeInsets.all(10),
+                      child: Container(
+                        child:  Center(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(30,0,0,0),
+                              child:TextField(
+                                controller: controllerEmail,
+                                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                                ],
+                                decoration: InputDecoration(
+
+                                  prefixIcon: Icon(Icons.margin, color: Colors.blue),
+                                  filled: true,
+                                  hintText: "Fuel Qty  in Ltr",
+                                  labelText: "Fuel Qty  in Ltr",
                                 ),
                               ),
 
@@ -191,8 +256,8 @@ class FuelFormPageState extends State<FuelFormPage> {
 
                                   prefixIcon: Icon(Icons.margin, color: Colors.blue),
                                   filled: true,
-                                  hintText: "FuelAmount",
-                                  labelText: "FuelAmount",
+                                  hintText: "Vehicle meter reading",
+                                  labelText: "Vehicle meter reading",
                                 ),
                               ),
 
@@ -210,8 +275,24 @@ class FuelFormPageState extends State<FuelFormPage> {
                       ),
                     ),
 
+
                     SizedBox(height: 10,),
 
+                    SizedBox(
+                      width: 330,
+                      height: 40,
+                      child: ElevatedButton(
+                        child: Text("Add Fuel Reciept Image",
+                            style: TextStyle(color: Colors.white, fontSize: 18)),
+                        onPressed: () {
+
+
+
+                        },
+                      ),
+                    ),
+
+                    SizedBox(height: 10,),
                     SizedBox(
                         width: 330,
                       height: 40,
@@ -240,7 +321,7 @@ class FuelFormPageState extends State<FuelFormPage> {
                           }
                         },
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

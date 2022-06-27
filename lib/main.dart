@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("state", loginResponse.data.state);
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>  const BottomNavController()),
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>   OtpPage()),
       );
     }else {
       Fluttertoast.showToast(
