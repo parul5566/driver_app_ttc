@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import '../Widget/my_shared_preferences.dart';
 import '../widget/AppColors.dart';
 import '../widget/bottom_nav_controller.dart';
@@ -17,28 +20,33 @@ class FuelFormPage extends StatefulWidget {
 
 class FuelFormPageState extends State<FuelFormPage> {
   TextEditingController controllerEmail = new TextEditingController();
-
-  TextEditingController controllerUserName = new TextEditingController();
-  TextEditingController controllerPassword = new TextEditingController();
-
-
+  TextEditingController controllerMeterreading = new TextEditingController();
+/*  TextEditingController controllerUserName = new TextEditingController();*/
+/*  TextEditingController controllerPassword = new TextEditingController();*/
 
 
 
+
+
+
+
+
+
+  static const default_getTipAmount = 0.0;
 
   static const defaultBillAmount = 0.0;
 
   // This is the default tip percentage
-  static const defaultTipPercentage = 15;
+  static const defaultTipPercentage = 0;
 
   // This is the TextEditingController which is used to keep track of the change in bill amount
-  final _billAmountController =
+  final controllerUserName =
   TextEditingController(
       text: defaultBillAmount.toString()
   );
 
   // This is the TextEditingController which is used to keep track of the change in tip percentage
-  final _tipPercentageController =
+  final controllerPassword =
   TextEditingController(
       text: defaultTipPercentage.toString()
   );
@@ -49,8 +57,38 @@ class FuelFormPageState extends State<FuelFormPage> {
   // This stores the latest value of tip percentage calculated
   int _tipPercentage = defaultTipPercentage;
 
+  @override
+  void initState() {
+    super.initState();
+    controllerUserName.addListener(_onBillAmountChanged);
+    controllerPassword.addListener(_onTipAmountChanged);
+  }
+
+  _onBillAmountChanged() {
+    setState(() {
+      _billAmount = double.tryParse(controllerUserName.text) ?? 0.0;
+    });
+  }
+
+  _onTipAmountChanged() {
+    setState(() {
+      _tipPercentage = int.tryParse(controllerPassword.text) ?? 0;
+    });
+  }
+
+  //This method is used to calculate the latest tip amount
+  _getTipAmount() => _billAmount / _tipPercentage ;
+
+  //This method is used to calculate the latest total amount
+  _getTotalAmount() => _billAmount + _getTipAmount();
 
 
+  @override
+  void dispose() {
+    controllerUserName.dispose();
+    controllerPassword.dispose();
+    super.dispose();
+  }
 
 
 
@@ -90,10 +128,6 @@ class FuelFormPageState extends State<FuelFormPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-
-
-
-
                     Padding(
                       padding:  EdgeInsets.all(10),
                       child: Column(
@@ -139,11 +173,7 @@ class FuelFormPageState extends State<FuelFormPage> {
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
-
-
-
                                 decoration: InputDecoration(
-
                                   prefixIcon: Icon(Icons.money, color: Colors.blue),
                                   filled: true,
                                   hintText: "Today Fuel Price",
@@ -220,8 +250,8 @@ class FuelFormPageState extends State<FuelFormPage> {
 
                                   prefixIcon: Icon(Icons.margin, color: Colors.blue),
                                   filled: true,
-                                  hintText: "Fuel Qty  in Ltr",
-                                  labelText: "Fuel Qty  in Ltr",
+                                  hintText: "Fuel Qty in Ltr",
+                                  labelText: "${_getTipAmount()}",
                                 ),
                               ),
 
@@ -247,7 +277,7 @@ class FuelFormPageState extends State<FuelFormPage> {
                             child: Padding(
                               padding: EdgeInsets.fromLTRB(30,0,0,0),
                               child:TextField(
-                                controller: controllerEmail,
+                                controller: controllerMeterreading,
                                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
@@ -256,7 +286,7 @@ class FuelFormPageState extends State<FuelFormPage> {
 
                                   prefixIcon: Icon(Icons.margin, color: Colors.blue),
                                   filled: true,
-                                  hintText: "Vehicle meter reading",
+                                  hintText: '',
                                   labelText: "Vehicle meter reading",
                                 ),
                               ),
@@ -433,6 +463,26 @@ class ProfileState extends State<Profile> {
           ),
         ),
       ),
+    );
+  }
+
+}
+
+
+class AmountText extends StatelessWidget {
+  final String text;
+
+  const AmountText(
+      this.text, {
+        required Key key,
+      }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      child: Text(text.toUpperCase(),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent, fontSize: 20)),
     );
   }
 }

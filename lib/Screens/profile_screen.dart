@@ -159,7 +159,7 @@ class _ProflePageState extends State<ProflePage> {
                             ),
                           ),
                           Text(
-                            "Update Setting",
+                            "Profile Update ",
                             style:
                             TextStyle(color: Colors.black, fontSize: 15.0),
                           ),

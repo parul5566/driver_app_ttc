@@ -18,7 +18,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
   final _pages = [
      const HomePage(),
     const ProflePage(),
-    TipCalculatorPage(),
   ];
   var _currentIndex = 0;
 
@@ -41,15 +40,6 @@ class _BottomNavControllerState extends State<BottomNavController> {
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.filter_list), label: ("Profile")),
-
-
-          BottomNavigationBarItem(
-              icon: Icon(Icons.filter_list), label: ("Profile")),
-
-
-
-
-
         ],
         onTap: (index) {
           setState(() {

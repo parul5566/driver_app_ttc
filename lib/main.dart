@@ -199,7 +199,8 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     },
                     style: TextStyle(color: Colors.blue)),
-              ])),
+              ],),),
+
               ],
             ),
     );

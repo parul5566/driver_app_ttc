@@ -2,6 +2,7 @@ import 'package:driver_app_ttc/Screens/profile_screen.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import '../../Widget/my_shared_preferences.dart';
 
@@ -255,11 +256,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(
                   width: 330,
                   height: 40,
-                  child: RaisedButton(
-                    color: Colors.blue,
+                  child: ElevatedButton(
                     child: Text("Update",
                         style: TextStyle(color: Colors.white, fontSize: 18)),
                     onPressed: () {
+                      Fluttertoast.showToast(
+                        msg:'user profile updated',
+                      );
                       if(formKey.currentState!.validate()) {
                         var getEmail = controllerEmail.text;
                         var getUserName = controllerUserName.text;
@@ -272,11 +275,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         MySharedPreferences.instance
                             .setStringValue("password", getPassword);
 
-
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (_) => const ProflePage()),
+
                         );
+
+
                       }
                     },
                   ),
