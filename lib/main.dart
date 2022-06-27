@@ -4,10 +4,12 @@ import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:driver_app_ttc/widget/bottom_nav_controller.dart';
 import 'package:driver_app_ttc/widget/my_shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'Models/login_model.dart';
+
 import 'Screens/signup_page.dart';
 import 'Services/Api.dart';
 
@@ -59,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("state", loginResponse.data.state);
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>  OtpPage()),
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>  const BottomNavController()),
       );
     }else {
       Fluttertoast.showToast(
@@ -71,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final _phoneFocus = new FocusNode();
   final phone = TextEditingController();
-  bool _validate = false;
+
   bool isLoggedIn = false;
 
   String validateMobile(String value) {
@@ -184,7 +186,20 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
 
-
+          RichText(
+              text: TextSpan(children: [
+                TextSpan(
+                    text: ' You have an account ? ',
+                    style: TextStyle(color: Colors.black)),
+                TextSpan(
+                    text: 'Sign Up',
+                    recognizer: new TapGestureRecognizer()..onTap = () => {
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => SignUp()),
+                      )
+                    },
+                    style: TextStyle(color: Colors.blue)),
+              ])),
               ],
             ),
     );

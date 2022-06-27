@@ -18,7 +18,6 @@ class _FuelhistoryState extends State<Fuelhistory> {
   final List _products = [];
 
   getcategotydata() async {
-
     var userid = await MySharedPreferences.instance.getStringValue("userid");
     FuelResponse? categoriesResponse =
     await Api().getProductsApi(uid: 20);
@@ -52,8 +51,9 @@ class _FuelhistoryState extends State<Fuelhistory> {
           title: const Text("Fuel History"),
         ),
         body: SafeArea(
-          child: Container(child: viewreturn(_products.length)),
-        ));
+          child: Container(child: viewreturn(_products.length),),
+        ),
+    );
   }
 
   Widget viewreturn(int plistlenth) {
@@ -64,6 +64,8 @@ class _FuelhistoryState extends State<Fuelhistory> {
             child: Text("No data found"),
           ));
     } else {
+
+
       return ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -91,6 +93,7 @@ class _FuelhistoryState extends State<Fuelhistory> {
                           )
                         ],
                       ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -106,6 +109,7 @@ class _FuelhistoryState extends State<Fuelhistory> {
                           )
                         ],
                       ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [
@@ -118,6 +122,7 @@ class _FuelhistoryState extends State<Fuelhistory> {
                           ),
                         ],
                       ),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -126,14 +131,17 @@ class _FuelhistoryState extends State<Fuelhistory> {
                                 left: 8.0, bottom: 8.0, right: 8.0),
                             child: Text(_products[index].dated),
                           ),
-
                         ],
                       ),
+
                     ],
-                  )),
+                  ),
+              ),
             );
           }
           );
+
+
     }
   }
 }

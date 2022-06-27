@@ -45,13 +45,17 @@ bool isLoading = false;
       ),
       backgroundColor: const Color(0xFFEEEEEE),
       body: SingleChildScrollView(
+
         child: Column(
+
           children: [
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(child: Image.asset('assets/logo.png')),
             ),
             Container(
+
+
               decoration: BoxDecoration(
                   color: Colors.white,
                   //border: Border.all(color: Colors.grey),
@@ -61,6 +65,7 @@ bool isLoading = false;
               child: Column(
                  mainAxisAlignment: MainAxisAlignment.center,
                 children:[
+
                    Padding(
                      padding: const EdgeInsets.all(8.0),
                      child: Text('SignUp'),
@@ -70,6 +75,12 @@ bool isLoading = false;
                     child: TextFormField(
 
                       keyboardType: TextInputType.text,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some Full Name';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                           counterText: "",
                           counterStyle: TextStyle(fontSize: 0),
@@ -92,6 +103,12 @@ bool isLoading = false;
                     child: TextFormField(
 
                       keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some Mobile Number';
+                        }
+                        return null;
+                      },
                       maxLength: 10,
                       inputFormatters:
                       [FilteringTextInputFormatter.digitsOnly],
@@ -125,7 +142,7 @@ bool isLoading = false;
                             filled: true,
                             fillColor: Colors.white,
                           ),
-                          validator: (value) => value == null ? "Plumber" : null,
+                          validator: (value) => value == null ? "" : "",
                           dropdownColor: Colors.white,
                           value: selectedValue,
                           onChanged: (String? newValue) {
@@ -167,7 +184,8 @@ bool isLoading = false;
                     ),
                   ),
 
-                  Padding(
+
+                /*  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
 
@@ -210,7 +228,9 @@ bool isLoading = false;
                           enabledBorder: InputBorder.none,
                           labelStyle: const TextStyle(color: Colors.grey)),
                     ),
-                  ),
+                  ),*/
+
+
 
 
                   RichText(
@@ -277,9 +297,6 @@ bool isLoading = false;
               ),
             ),
 
-
-
-
           ],
         ),
       ),
@@ -287,5 +304,7 @@ bool isLoading = false;
     );
   }
 }
+
+
 
 

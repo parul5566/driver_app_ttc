@@ -39,6 +39,7 @@ class FuelFormPageState extends State<FuelFormPage> {
             automaticallyImplyLeading: true,
             title: const Text("Fuel History"),
           ),
+
           body: SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.all(25),
@@ -244,7 +245,8 @@ class FuelFormPageState extends State<FuelFormPage> {
                 ),
               ),
             ),
-          )),
+          ),
+      ),
     );
   }
 }
@@ -290,6 +292,7 @@ class ProfileState extends State<Profile> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+
                       SizedBox(
                         height: 100,
                         width: 160,
@@ -315,6 +318,7 @@ class ProfileState extends State<Profile> {
                         ),
                       ),
 
+
                       SizedBox(
                         height: 100,
                         width: 160,
@@ -339,6 +343,7 @@ class ProfileState extends State<Profile> {
                           elevation: 13,
                         ),
                       ),
+
                     ],
                   ),
                 ),

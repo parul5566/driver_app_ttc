@@ -119,10 +119,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
-
-
-
   getstatedata() async {
     VehicleListResponse? categoriesResponse =await Api().getvechillist();
 
@@ -134,6 +130,7 @@ class _HomePageState extends State<HomePage> {
 
     }
   }
+
   @override
   void initState() {
     getdata();
@@ -141,7 +138,6 @@ class _HomePageState extends State<HomePage> {
     gettodaydata();
     // TODO: implement initState
     super.initState();
-
   }
 
 

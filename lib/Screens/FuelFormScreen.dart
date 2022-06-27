@@ -268,7 +268,7 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                   ),
                 ),
 
-                 Card(
+                    Card(
                   child: SizedBox(
                     height: 40.0,
                     width: MediaQuery.of(context).size.width * 1.0,
@@ -316,6 +316,8 @@ class _FuelFormScreenState extends State<FuelFormScreen> {
                     ),
                   ),
                 ),
+
+
 
               ],
             ),
