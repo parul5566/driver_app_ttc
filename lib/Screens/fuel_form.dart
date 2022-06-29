@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,20 +20,72 @@ class FuelFormPage extends StatefulWidget {
 }
 
 class FuelFormPageState extends State<FuelFormPage> {
-  TextEditingController controllerEmail = new TextEditingController();
+ /* TextEditingController controllerEmail = new TextEditingController();*/
   TextEditingController controllerMeterreading = new TextEditingController();
-/*  TextEditingController controllerUserName = new TextEditingController();*/
-/*  TextEditingController controllerPassword = new TextEditingController();*/
+  /*TextEditingController controllerUserName = new TextEditingController();*/
+  TextEditingController controllerPassword = new TextEditingController();
+  bool _validate = false;
 
 
+  final formGlobalKey = GlobalKey < FormState > ();
 
 
+  late File imgFile;
+  final imgPicker = ImagePicker();
 
+  Future<void> showOptionsDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Options"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  GestureDetector(
+                    child: Text("Capture Image From Camera"),
+                    onTap: () {
+                      openCamera();
+                    },
+                  ),
+                  Padding(padding: EdgeInsets.all(10)),
+                  GestureDetector(
+                    child: Text("Take Image From Gallery"),
+                    onTap: () {
+                      openGallery();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
+  void openCamera() async {
+    var imgCamera = await imgPicker.getImage(source: ImageSource.camera);
+    setState(() {
+      imgFile = File(imgCamera!.path);
+    });
+    Navigator.of(context).pop();
+  }
 
+  void openGallery() async {
+    var imgGallery = await imgPicker.getImage(source: ImageSource.gallery);
+    setState(() {
+      imgFile = File(imgGallery!.path);
+    });
+    Navigator.of(context).pop();
+  }
 
+  Widget displayImage(){
+    if(imgFile == null){
+      return Text("No Image Selected!");
+    } else{
+      return Image.file(imgFile, width: 350, height: 350);
+    }
+  }
 
-  static const default_getTipAmount = 0.0;
 
   static const defaultBillAmount = 0.0;
 
@@ -40,13 +93,13 @@ class FuelFormPageState extends State<FuelFormPage> {
   static const defaultTipPercentage = 0;
 
   // This is the TextEditingController which is used to keep track of the change in bill amount
-  final controllerUserName =
+  final controllerEmail =
   TextEditingController(
       text: defaultBillAmount.toString()
   );
 
   // This is the TextEditingController which is used to keep track of the change in tip percentage
-  final controllerPassword =
+  final controllerUserName =
   TextEditingController(
       text: defaultTipPercentage.toString()
   );
@@ -60,19 +113,19 @@ class FuelFormPageState extends State<FuelFormPage> {
   @override
   void initState() {
     super.initState();
-    controllerUserName.addListener(_onBillAmountChanged);
-    controllerPassword.addListener(_onTipAmountChanged);
+    controllerEmail.addListener(_onBillAmountChanged);
+    controllerUserName.addListener(_onTipAmountChanged);
   }
 
   _onBillAmountChanged() {
     setState(() {
-      _billAmount = double.tryParse(controllerUserName.text) ?? 0.0;
+      _billAmount = double.tryParse(controllerEmail.text) ?? 0.0;
     });
   }
 
   _onTipAmountChanged() {
     setState(() {
-      _tipPercentage = int.tryParse(controllerPassword.text) ?? 0;
+      _tipPercentage = int.tryParse(controllerUserName.text) ?? 0;
     });
   }
 
@@ -80,21 +133,13 @@ class FuelFormPageState extends State<FuelFormPage> {
   _getTipAmount() => _billAmount / _tipPercentage ;
 
   //This method is used to calculate the latest total amount
-  _getTotalAmount() => _billAmount + _getTipAmount();
 
 
   @override
   void dispose() {
-    controllerUserName.dispose();
-    controllerPassword.dispose();
+    controllerMeterreading.dispose();
     super.dispose();
   }
-
-
-
-
-
-
 
 
 
@@ -117,245 +162,245 @@ class FuelFormPageState extends State<FuelFormPage> {
             ),
             backgroundColor: AppColors.deep_orange,
             automaticallyImplyLeading: true,
-            title: const Text("Fuel History"),
+            title: const Text("Add Expensive"),
           ),
 
-          body: SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.all(25),
-              child: Form(
-                key: formKey,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding:  EdgeInsets.all(10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding:  EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Container(
-                            child:  Center(
-                              child: Align(
-                                alignment: Alignment.topCenter,
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(0,20,0,0),
-                                  child:  Text(
-                                    DateTime.now().toString(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold, fontSize: 15),
-                                  ),
-                                ),
-                              ),
+                  children: [
+                    Container(
+                      child:  Center(
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0,20,0,0),
+                            child:  Text(
+                              DateTime.now().toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 15),
                             ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
-                              ],
-                            ),
-                            height: 50,
                           ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
                         ],
                       ),
-                    ),
-
-                    Padding(
-                      padding:  EdgeInsets.all(10),
-                      child: Container(
-                        child:  Center(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(30,0,0,0),
-                              child:TextField(
-                                controller: controllerPassword,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.digitsOnly
-                                ],
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.money, color: Colors.blue),
-                                  filled: true,
-                                  hintText: "Today Fuel Price",
-                                  labelText: "Today Fuel Price",
-                                ),
-                              ),
-
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
-                          ],
-                        ),
-                        height: 50,
-                      ),
-                    ),
-
-                    Padding(
-                      padding:  EdgeInsets.all(10),
-                      child: Container(
-                        child:  Center(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(30,0,0,0),
-                              child:TextField(
-                                controller: controllerUserName,
-                                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
-                                ],
-                                decoration: InputDecoration(
-
-                                  prefixIcon: Icon(Icons.margin, color: Colors.blue),
-                                  filled: true,
-                                  hintText: "Amount",
-                                  labelText: "Amount",
-                                ),
-                              ),
-
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
-                          ],
-                        ),
-                        height: 50,
-                      ),
-                    ),
-
-                    Padding(
-                      padding:  EdgeInsets.all(10),
-                      child: Container(
-                        child:  Center(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(30,0,0,0),
-                              child:TextField(
-                                controller: controllerEmail,
-                                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
-                                ],
-                                decoration: InputDecoration(
-
-                                  prefixIcon: Icon(Icons.margin, color: Colors.blue),
-                                  filled: true,
-                                  hintText: "Fuel Qty in Ltr",
-                                  labelText: "${_getTipAmount()}",
-                                ),
-                              ),
-
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
-                          ],
-                        ),
-                        height: 50,
-                      ),
-                    ),
-                    Padding(
-                      padding:  EdgeInsets.all(10),
-                      child: Container(
-                        child:  Center(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.fromLTRB(30,0,0,0),
-                              child:TextField(
-                                controller: controllerMeterreading,
-                                keyboardType: TextInputType.numberWithOptions(decimal: true),
-                                inputFormatters: [
-                                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
-                                ],
-                                decoration: InputDecoration(
-
-                                  prefixIcon: Icon(Icons.margin, color: Colors.blue),
-                                  filled: true,
-                                  hintText: '',
-                                  labelText: "Vehicle meter reading",
-                                ),
-                              ),
-
-                            ),
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: const [
-                            BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
-                          ],
-                        ),
-                        height: 50,
-                      ),
-                    ),
-
-
-                    SizedBox(height: 10,),
-
-                    SizedBox(
-                      width: 330,
-                      height: 40,
-                      child: ElevatedButton(
-                        child: Text("Add Fuel Reciept Image",
-                            style: TextStyle(color: Colors.white, fontSize: 18)),
-                        onPressed: () {
-
-
-
-                        },
-                      ),
-                    ),
-
-                    SizedBox(height: 10,),
-                    SizedBox(
-                        width: 330,
-                      height: 40,
-                      child: RaisedButton(
-                        color: Colors.blue,
-                        child: Text("Submit",
-                            style: TextStyle(color: Colors.white, fontSize: 18)),
-                        onPressed: () {
-                          if(formKey.currentState!.validate()) {
-                            var getEmail = controllerEmail.text;
-                            var getUserName = controllerUserName.text;
-                            var getPassword = controllerPassword.text;
-
-                            MySharedPreferences.instance
-                                .setStringValue("email", getEmail);
-                            MySharedPreferences.instance
-                                .setStringValue("username", getUserName);
-                            MySharedPreferences.instance
-                                .setStringValue("password", getPassword);
-
-
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (_) => BottomNavController()),
-                            );
-                          }
-                        },
-                      ),
+                      height: 50,
                     ),
                   ],
                 ),
               ),
-            ),
+
+              Padding(
+                padding:  EdgeInsets.all(10),
+                child: Container(
+                  child:  Center(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(30,0,0,0),
+                        child:TextField(
+                          controller: controllerEmail,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.money, color: Colors.blue),
+                            filled: true,
+                            hintText: "Today Fuel Price",
+                            labelText: "Today Fuel Price",
+                          ),
+                        ),
+
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                    ],
+                  ),
+                  height: 50,
+                ),
+              ),
+
+              Padding(
+                padding:  EdgeInsets.all(10),
+                child: Container(
+                  child:  Center(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(30,0,0,0),
+                        child:TextField(
+                          controller: controllerUserName,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                          ],
+                          decoration: InputDecoration(
+
+                            prefixIcon: Icon(Icons.margin, color: Colors.blue),
+                            filled: true,
+                            hintText: "Amount",
+                            labelText: "Amount",
+                          ),
+                        ),
+
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                    ],
+                  ),
+                  height: 50,
+                ),
+              ),
+
+              Padding(
+                padding:  EdgeInsets.all(10),
+                child: Container(
+                  child:  Center(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(30,0,0,0),
+                        child:TextField(
+                          controller: controllerPassword,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                          ],
+                          decoration: InputDecoration(
+
+                            prefixIcon: Icon(Icons.margin, color: Colors.blue),
+                            filled: true,
+                            hintText: "Fuel Qty in Ltr",
+                            labelText:  ' ${_getTipAmount()}',
+                          ),
+                        ),
+
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                    ],
+                  ),
+                  height: 50,
+                ),
+              ),
+
+              Padding(
+                padding:  EdgeInsets.all(10),
+                child: Container(
+                  child:  Center(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(30,0,0,0),
+                        child:TextFormField(
+                          controller: controllerMeterreading,
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')),
+                          ],
+                          validator: (isPasswordValid) {
+                            if ((isPasswordValid) != null) return null;
+                            else
+                              return 'Enter value';
+                          },
+                          decoration: InputDecoration(
+
+                            prefixIcon: Icon(Icons.margin, color: Colors.blue),
+                            filled: true,
+                            hintText: '',
+                            labelText: "Vehicle meter reading",
+                          ),
+                        ),
+
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    boxShadow: const [
+                      BoxShadow(color: AppColors.deep_orange, spreadRadius: 2),
+                    ],
+                  ),
+                  height: 50,
+                ),
+              ),
+
+              SizedBox(height: 10,),
+
+              SizedBox(
+                width: 330,
+                height: 40,
+                child: ElevatedButton(
+                  child: Text("Add Fuel Reciept Image",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onPressed: () {
+
+                    showOptionsDialog(context);
+
+                  },
+                ),
+              ),
+
+              SizedBox(height: 10,),
+
+              SizedBox(
+                  width: 330,
+                height: 40,
+                child: ElevatedButton(
+                  child: Text("Submit",
+                      style: TextStyle(color: Colors.white, fontSize: 18)),
+                  onPressed: () {
+                    if (formGlobalKey.currentState!.validate()) {
+                      formGlobalKey.currentState!.save();
+                      // use the email provided here
+                    }
+                    if(formKey.currentState!.validate()) {
+                      var getEmail = controllerEmail.text;
+                      var getUserName = controllerUserName.text;
+                      var getPassword = controllerPassword.text;
+                      MySharedPreferences.instance
+                          .setStringValue("email", getEmail);
+                      MySharedPreferences.instance
+                          .setStringValue("username", getUserName);
+                      MySharedPreferences.instance
+                          .setStringValue("password", getPassword);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const BottomNavController()
+                        ),
+                      );
+                    }
+
+                  },
+                ),
+              ),
+            ],
           ),
       ),
     );
@@ -419,7 +464,7 @@ class ProfileState extends State<Profile> {
                                   fontWeight: FontWeight.normal,
                                   color: Colors.white,fontSize: 15,
                                 ),),
-                              Text(username,style: TextStyle(
+                              Text('\u{004C}${username}',style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white,fontSize: 15,
                               ),),
@@ -445,7 +490,7 @@ class ProfileState extends State<Profile> {
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white,fontSize: 15,
                               ),),
-                              Text(email,style: TextStyle(
+                              Text('\u{20B9}${email}',style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 color: Colors.white,fontSize: 15,
                               ),),
@@ -468,21 +513,6 @@ class ProfileState extends State<Profile> {
 
 }
 
-
-class AmountText extends StatelessWidget {
-  final String text;
-
-  const AmountText(
-      this.text, {
-        required Key key,
-      }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Text(text.toUpperCase(),
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueAccent, fontSize: 20)),
-    );
-  }
+mixin InputValidationMixin {
+  bool isPasswordValid(String password) => password.length == 6;
 }

@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 
+import '../Models/day_start.dart';
+
 
 class DataShow extends StatefulWidget {
   const DataShow({Key? key}) : super(key: key);
@@ -48,13 +50,11 @@ class _DataShowState extends State<DataShow> {
                         color:
                         connected ? Color(0xFF00EE44) : Color(0xFF990000),
                         child: connected
-
-
                             ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              "Onduty",
+                              "OnDuty",
                               style: TextStyle(color: Colors.white),
                             ),
                           ],

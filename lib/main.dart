@@ -1,16 +1,12 @@
-
 import 'package:driver_app_ttc/Screens/otp_page.dart';
 import 'package:driver_app_ttc/widget/AppColors.dart';
 import 'package:driver_app_ttc/widget/bottom_nav_controller.dart';
 import 'package:driver_app_ttc/widget/my_shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'Models/login_model.dart';
-
-import 'Screens/signup_page.dart';
 import 'Services/Api.dart';
 
 
@@ -24,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignUp(),
+        home: BottomNavController(),
     );
   }
 }
@@ -61,7 +57,9 @@ class _LoginPageState extends State<LoginPage> {
       MySharedPreferences.instance.setStringValue("state", loginResponse.data.state);
       MySharedPreferences.instance.setStringValue("pincode", loginResponse.data.pincode);
       MySharedPreferences.instance.setStringValue("groupid", loginResponse.data.groupId);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>   OtpPage()),
+      Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context)=>   OtpPage(),
+      ),
       );
     }else {
       Fluttertoast.showToast(
@@ -89,19 +87,16 @@ class _LoginPageState extends State<LoginPage> {
     return value;
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFEEEEEE),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Center(child: Image.asset('assets/logo.png')),
           Container(
-
             decoration: BoxDecoration(
                 color: Colors.white,
                 //border: Border.all(color: Colors.grey),
@@ -109,9 +104,12 @@ class _LoginPageState extends State<LoginPage> {
             margin: const EdgeInsets.fromLTRB(20, 30, 20, 10),
             padding: const EdgeInsets.fromLTRB(10, 0, 10, 25),
             child: Column(
-
+              mainAxisAlignment: MainAxisAlignment.center,
               children:[
-
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Login',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
@@ -140,66 +138,62 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: ElevatedButton(
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w800,
+                            color: Colors.white),
+                      ),
+                      onPressed: () {
+
+                        Future.delayed(const Duration(seconds: 3), (){
+                          setState(() {
+                            isLoading = true;
+                          }
+                          );
+                        }
+                        );
+
+                        if (phone.text.toString().isEmpty) {
+                          _showMyDialog(context, "Please Enter Phone number");
+
+                        } else{
+                          callLoginApi("91"+phone.text.toString());
+                        }
+                      },
+                      style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(AppColors.deep_orange),
+                          padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(8.0)),
+                          textStyle: MaterialStateProperty.all(
+                              const TextStyle(fontSize: 18))),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 40,
-              child: ElevatedButton(
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white),
-                ),
-                onPressed: () {
-
-                     Future.delayed(const Duration(seconds: 3), (){
-                       setState(() {
-                         isLoading = true;
-                       }
-                                   );
-                                    }
-                                    );
-
-                  if (phone.text.toString().isEmpty) {
-                    _showMyDialog(context, "Please Enter Phone number");
-
-                  } else{
-                    callLoginApi("91"+phone.text.toString());
-                  }
-                },
-                style: ButtonStyle(
-                    backgroundColor:
-                    MaterialStateProperty.all(AppColors.deep_orange),
-                    padding:
-                    MaterialStateProperty.all(const EdgeInsets.all(8.0)),
-                    textStyle: MaterialStateProperty.all(
-                        const TextStyle(fontSize: 18))),
-              ),
-            ),
+          SizedBox(height: 10,),
+       Text(' Any Problem ? Please Call Us on Toll Free Number '),
+          SizedBox(height: 10,),
+          Center(
+              child: RichText(
+            text: const TextSpan(
+              children: [
+              TextSpan(
+                  text: '1800-270-1417',
+                  style: TextStyle(color: Colors.blue)),
+            ],),),
           ),
-
-          RichText(
-              text: TextSpan(children: [
-                TextSpan(
-                    text: ' You have an account ? ',
-                    style: TextStyle(color: Colors.black)),
-                TextSpan(
-                    text: 'Sign Up',
-                    recognizer: new TapGestureRecognizer()..onTap = () => {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => SignUp()),
-                      )
-                    },
-                    style: TextStyle(color: Colors.blue)),
-              ],),),
 
               ],
             ),

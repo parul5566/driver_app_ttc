@@ -1,3 +1,4 @@
+/*
 import 'package:driver_app_ttc/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -155,7 +156,8 @@ bool isLoading = false;
 
 
 
-                      /*DropdownButton(
+                      */
+/*DropdownButton(
                         hint: dropdownValuestate.isEmpty
                             ? const Text(
                           'Plumber',
@@ -178,12 +180,14 @@ bool isLoading = false;
                             vechleid = newValue.vid;
                             //getcity(newValue.id);
                           });
-                        }),*/
+                        }),*//*
+
                     ),
                   ),
 
 
-                /*  Padding(
+                */
+/*  Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
 
@@ -226,7 +230,8 @@ bool isLoading = false;
                           enabledBorder: InputBorder.none,
                           labelStyle: const TextStyle(color: Colors.grey)),
                     ),
-                  ),*/
+                  ),*//*
+
 
 
 
@@ -273,12 +278,14 @@ bool isLoading = false;
                           }
                           );
 
-                          /*  if (phone.text.toString().isEmpty) {
+                          */
+/*  if (phone.text.toString().isEmpty) {
                       _showMyDialog(context, "Please Enter Phone number");
 
                     } else{
                       callLoginApi("91"+phone.text.toString());
-                    }*/
+                    }*//*
+
                         },
                         style: ButtonStyle(
                             backgroundColor:
@@ -306,3 +313,4 @@ bool isLoading = false;
 
 
 
+*/
